@@ -9,8 +9,7 @@ import * as request from 'request'
 class JiraService {
 
     private jiraRepository = getRepository(Jira)
-    private oauthRequest = {}
-    public addJira = async (jiraData : CreateJiraDto ) => {
+    public getJiraOauthRequest = async (jiraData : CreateJiraDto ) => {
         try {
             console.log("/n/n/n/n/n/nllego hasta aqui8")
             //Integration process
@@ -24,8 +23,10 @@ class JiraService {
                 "http://localhost:8090/sessions/callback",
                 "RSA-SHA1",
             );
+            var oauthRequest = {}
             //Get Access Token
-            consumer.getOAuthRequestToken(
+            async ()=> {
+                await consumer.getOAuthRequestToken(
                 function(error, oauthToken, oauthTokenSecret, results) {
                     if (error) {
                         console.log("/n/n/n/n/n/nllego hasta aqui9")
@@ -35,18 +36,16 @@ class JiraService {
                     else {
                         console.log("/n/n/n/n/n/nllego hasta aqui10")
                         console.log(oauthToken, oauthTokenSecret)
-                          request(jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token="+oauthToken, function (error, response, body) {
-                            console.log('error:', error); // Print the error if one occurred
-                            console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-                            console.log('body:', body); // Print the HTML for the Google homepage.
-                            });
-                          console.log({'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret})
-                          this.oauthRequest= {'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret}
+                        var jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken
+                        console.log({'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret, 'jira_auth_url': jira_auth_url})
+                        oauthRequest= {'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret, 'jira_auth_url': jira_auth_url}
                     }
                 }
-            )
+            )}
+
             console.log("/n/n/n/n/n/nllego hasta aqui11")
-            console.log(this.oauthRequest)
+            console.log(oauthRequest)
+            return oauthRequest;
             //const jira = await this.jiraRepository.save(jiraData);
             //return(jira)
         } catch (error) {
