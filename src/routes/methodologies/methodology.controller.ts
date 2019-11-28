@@ -131,3 +131,6 @@ private deleteMethodology = async (request : express.Request,response : express.
 }
 
 }
+
+
+export default MethodologyController;
