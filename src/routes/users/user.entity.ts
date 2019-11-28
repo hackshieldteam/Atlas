@@ -4,6 +4,7 @@ import Group from "../groups/group.entity";
 import Company from "../companies/company.entity";
 import { IsInt, IsString, IsOptional, ValidateNested, IsDefined, IsArray } from "class-validator";
 import { Type } from "class-transformer";
+import Test from "../tests/test.entity";
 
 @Entity()
 class User{
@@ -41,6 +42,15 @@ class User{
     @Type(()=> Company)
     @ManyToMany(type => Company, company => company.users)
     companies : Company[];
+
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @Type(()=> Test)
+    @OneToMany(type => Test, (test : Test) => test.user)
+    tests : Test[] 
 }
 
 export default User;

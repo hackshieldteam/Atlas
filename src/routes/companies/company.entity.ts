@@ -11,6 +11,8 @@ import Profile from "../profiles/profile.entity";
 import Responsable from "../responsables/responsable.entity";
 import Tag from "../tags/tag.entity";
 import { Type } from "class-transformer";
+import Test from "../tests/test.entity";
+import Methodology from "../methodologies/methodology.entity";
 
 @Entity()
 class Company{
@@ -95,6 +97,22 @@ class Company{
     @IsArray()
     @OneToMany( type => Url, url => url.company)
     urls : Url[]
+
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @OneToMany( type => Test, test => test.company)
+    test : Test[]
+
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @OneToMany( type => Methodology, methodology => methodology.company)
+    methodologies : Methodology[]
 
 
 
