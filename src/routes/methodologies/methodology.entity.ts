@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, Column,PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
 import { IsDefined, IsString, IsNotEmpty, ValidateNested, IsArray } from "class-validator";
 import Test from "../tests/test.entity";
 import Company from "../companies/company.entity";
@@ -14,8 +14,7 @@ class Methodology {
     id!: number;
 
     @IsString()
-    @IsDefined()
-    @IsNotEmpty()
+    @Column("varchar",{ length : 15 })
     name: string;
 
     @IsArray()
