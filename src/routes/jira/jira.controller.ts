@@ -2,15 +2,15 @@ import * as express from 'express';
 import Controller from 'routes/interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
-import { getRepository } from 'typeorm';
+import { CreateJiraDto, UpdateJiraDto, FindJiraDto } from './jira.dto';
+import JiraService from './jira.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
+import Jira from './jira.entity';
 import * as jwt from 'jsonwebtoken';
-import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
-import Jira from '../jira/jira.entity';
-import { FindJiraDto, CreateJiraDto, UpdateJiraDto } from '../jira/jira.dto';
-import JiraService from './jira.service';
+import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
+
 
 
 class JiraController implements Controller {
@@ -19,24 +19,66 @@ class JiraController implements Controller {
     private jiraService = new JiraService();
 
     constructor() {
-        this.initializeRoutes()
+        this.initializeRoutes();
     }
 
     private initializeRoutes() {
-        // this.router.get(this.path, authMiddleware, permissionMiddleware(["GET EVIDENCES"]), validationMiddleware(FindEvidenceDto), this.getEvidences);
-        this.router.post(this.path, authMiddleware, permissionMiddleware(["ADD JIRA"]), this.addJira);
+        this.router.post(this.path, authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(CreateJiraDto), this.addJira);
         this.router.all(this.path + "/*", authMiddleware);
-        // this.router.get(this.path + "/:id", permissionMiddleware(["GET JIRA"]), this.getJira);
-        // this.router.patch(this.path + "/:id", permissionMiddleware(["MODIFY JIRA"]), validationMiddleware(UpdateJiraDto), this.modifyJira);
-        // this.router.delete(this.path + "/:id", permissionMiddleware(["DELETE JIRA"]), this.deleteJira);       
     }
+    //     this.router.post(this.path + "/search", permissionMiddleware(["GET AREAS"]), validationMiddleware(FindAreaDto), this.getAreas);
+    //     this.router.get(this.path + "/:id", permissionMiddleware(["GET AREAS"]), this.getArea);
+    //     this.router.get(this.path + "/:id/departments", permissionMiddleware(["GET AREAS", "GET DEPARTMENTS"]), validationMiddleware(FindAreaDto), this.getAreaDepartments);
+    //     this.router.get(this.path + "/:id/assets", permissionMiddleware(["GET AREAS", "GET ASSETS"]), validationMiddleware(FindAreaDto), this.getAreaAssets);
+    //     this.router.patch(this.path + "/:id", permissionMiddleware(["MODIFY AREAS"]), validationMiddleware(UpdateAreaDto), this.modifyArea);
+    //     this.router.delete(this.path + "/:id", permissionMiddleware(["DELETE AREAS"]), this.deleteArea);
+    // }
 
-    
-    // private findJira = async (request : express.Request, relations) => {
-    //     var filterCompanies = [];
-    //     this.setFilters(request, filterCompanies)
-    //     const jira : Jira = await this.jiraService.getJira(filterCompanies,relations);
-    //     return jira;
+    // private getAreas = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    //     try {
+    //         const secret = process.env.JWT_SECRET;
+    //         const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
+    //         const filters: FindAreaDto[] = request.body.length > 0 ? request.body : []
+    //         modifyEntries(filters)
+    //         addCompanyFilter(filters, companies)
+    //         const areas = await this.areaService.getAreas(filters, request.query.limit, request.query.offset);
+    //         response.status(200).send(areas);
+    //     } catch (error) {
+    //         next(new HttpException(400, error.message));
+    //     }
+    // }
+    private addJira = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        try {
+            const secret = process.env.JWT_SECRET;
+
+            const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
+            var jiraData: CreateJiraDto = request.body;
+            if (companies.indexOf(jiraData.company.id) == -1) {
+                console.log("/n/n/n/n/n/nllego hasta aqui3")
+                next(new HttpException(400, "User does not belong to that company"))
+            } else {
+                console.log("/n/n/n/n/n/nllego hasta aqui5")
+                const newJira = await this.jiraService.addJira(jiraData);
+                console.log("/n/n/n/n/n/nllego hasta aqui6")
+                response.status(201).send(newJira);
+            }
+        } catch (error) {
+            console.log("/n/n/n/n/n/nllego hasta aqui7")
+            next(new HttpException(400, error.message))
+        }
+    }
+    // private modifyArea = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    //     const areaData: UpdateAreaDto = request.body;
+    //     try {
+    //         var filterCompanies = [];
+    //         this.setFilters(request, filterCompanies)
+    //         const area: Area = await this.areaService.modifyArea(request.params.id, areaData);
+    //         if (area)
+    //             response.status(200).send(area);
+    //         else next(new HttpException(404, "Area does not exist"))
+    //     } catch (error) {
+    //         next(new HttpException(400, error.message))
+    //     }
     // }
     private setFilters = (request: express.Request, filterCompanies) => {
         filterCompanies.push({ id: parseInt(request.params.id) });
@@ -44,88 +86,52 @@ class JiraController implements Controller {
         const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
         addCompanyFilter(filterCompanies, companies);
     }
-
-    private addJira = async (request, response: express.Response, next: express.NextFunction) => {
-        try {
-            const secret = process.env.JWT_SECRET;
-            var jiraData = {};
-            if(request.body.name){
-                jiraData["name"] = request.body.name
-            }else{
-                next(new HttpException(400,'Name parameter is mandatory'))
-                return;
-            }
-            if(request.body.homePath){
-                jiraData["homePath"] = request.body.homePath
-            }else{
-                next(new HttpException(400,'HomePath parameter is mandatory'))
-                return;
-            }
-            if(request.body.consumerKey){
-                jiraData["consumerKey"] = request.body.consumerKey
-            }else{
-                next(new HttpException(400,'ConsumerKey parameter is mandatory'))
-                return;
-            }
-            if(request.body.consumerPrivateKey){
-                jiraData["consumerPrivateKey"] = request.body.consumerPrivateKey
-            }else{
-                next(new HttpException(400,'ConsumerPrivateKey parameter is mandatory'))
-                return;
-            }
-            if(request.body.accessToken){
-                jiraData["accessToken"] = request.body.accessToken
-            }else{
-                next(new HttpException(400,'AccessToken parameter is mandatory'))
-                return;
-            }
-            if(request.body.description){
-                jiraData["description"] = request.body.description
-            }else{
-                next(new HttpException(400,'Description parameter is mandatory'))
-                return;
-            }
-        } catch (error) {
-            next(new HttpException(400, error.message))
-        }
-    }
-    
-//         private getEvidence = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-//             if (!isNaN(parseInt(request.params.id))) {
-//                 const evidence: Evidence = await this.findEvidence(request, ["vulnerability"]);
-//                 if (evidence)
-//                     response.send(evidence);
-//                 else next(new HttpException(404, "Evidence does not exist"))
-//             } else {
-//                 next(new HttpException(400, "Id has to be a number"))
-//             }
+    // private findArea = async (request: express.Request, relations) => {
+    //     var filterCompanies = [];
+    //     this.setFilters(request, filterCompanies)
+    //     const area: Area = await this.areaService.getArea(filterCompanies, relations);
+    //     return area;
+    // }
+//     private getArea = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+//         try {
+//             const area: Area = await this.findArea(request, ["company"]);
+//             if (area)
+//                 response.send(area);
+//             else next(new HttpException(404, "Area does not exist"))
+//         } catch (error) {
+//             next(new HttpException(400, error.message))
 //         }
-//         private modifyEvidence = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-//             var evidenceData: UpdateEvidenceDto = request.body;
-//             try {
-//                 var filterCompanies = [];
-//                 this.setFilters(request, filterCompanies)
-//                 const evidence: Evidence = await this.evidenceService.modifyEvidence(filterCompanies, evidenceData);
-//                 if (evidence)
-//                     response.send(evidence);
-//                 else next(new HttpException(404, "Evidence does not exist"))
-//             } catch (error) {
-//                 next(new HttpException(400, error.message))
-//             }
+//     }
+//     private getAreaDepartments = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+//         try {
+//             const area: Area = await this.findArea(request, ["departments"]);
+//                 if (area)
+//                     response.send(area.departments);
+//                 else next(new HttpException(404, "Area does not exist"))
+//         } catch (error) {
+//             next(new HttpException(400, error.message))
 //         }
-    
-//         private deleteEvidence = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-//             if (!isNaN(parseInt(request.params.id))) {
-//                 const evidence: Evidence = await this.findEvidence(request, []);
-//                 if (evidence) {
-//                     const result = await this.evidenceService.deleteEvidence(evidence);
-//                     response.sendStatus(200);
-//                 }
-//                 else next(new HttpException(404, "Evidence does not exist"))
-//             } else {
-//                 next(new HttpException(400, "Id has to be a number"))
-//             }
+//     }
+//     private getAreaAssets = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+//         try {
+//             const area: Area = await this.findArea(request, ["assets"]);
+//              if (area)
+//                  response.send(area.assets);
+//              else next(new HttpException(404, "Area does not exist"))
+//         } catch (error) {
+//             next(new HttpException(400, error.message))
 //         }
+//     }
+//     private deleteArea = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+//         try {
+//             const result = await this.areaService.deleteArea(parseInt(request.params.id))
+//             if(result.affected)
+//                 response.status(200).send();
+//             else next(new HttpException(404, "Area does not exist"))
+//         } catch (error) {
+//             next(new HttpException(400, error.message))
+//         }
+//     }
 }
 
 export default JiraController;

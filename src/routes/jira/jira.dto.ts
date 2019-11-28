@@ -21,7 +21,7 @@ class CreateJiraDto {
     @IsString()
     public consumerPrivateKey: string;
 
-    @IsDefined()
+    @IsOptional()
     @IsString()
     public accessToken: string;
 

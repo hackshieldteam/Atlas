@@ -12,8 +12,10 @@ class JiraService {
     private oauthRequest = {}
     public addJira = async (jiraData : CreateJiraDto ) => {
         try {
+            console.log("/n/n/n/n/n/nllego hasta aqui8")
             //Integration process
             //Get Unauthorized Token
+            console.log(jiraData.homePath,jiraData.consumerKey,jiraData.consumerPrivateKey);
             var consumer =   new OAuth(jiraData.homePath + "/plugins/servlet/oauth/request-token",
                 jiraData.homePath + "/plugins/servlet/oauth/access-token",
                 jiraData.consumerKey,
@@ -26,11 +28,13 @@ class JiraService {
             consumer.getOAuthRequestToken(
                 function(error, oauthToken, oauthTokenSecret, results) {
                     if (error) {
+                        console.log("/n/n/n/n/n/nllego hasta aqui9")
                         console.log(error.data);
                         //HAY QUE CONTROLAR EL ERROR
                     }
                     else {
-                        console.log(oauthToken)
+                        console.log("/n/n/n/n/n/nllego hasta aqui10")
+                        console.log(oauthToken, oauthTokenSecret)
                           request(jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token="+oauthToken, function (error, response, body) {
                             console.log('error:', error); // Print the error if one occurred
                             console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -41,6 +45,7 @@ class JiraService {
                     }
                 }
             )
+            console.log("/n/n/n/n/n/nllego hasta aqui11")
             console.log(this.oauthRequest)
             //const jira = await this.jiraRepository.save(jiraData);
             //return(jira)
