@@ -23,7 +23,7 @@ class JiraController implements Controller {
     }
 
     private initializeRoutes() {
-        this.router.post(this.path, authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(CreateJiraDto), this.addJira);
+        this.router.post(this.path + "/getjiraoauthrequest", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(CreateJiraDto), this.getJiraOauthRequest);
         this.router.all(this.path + "/*", authMiddleware);
     }
     //     this.router.post(this.path + "/search", permissionMiddleware(["GET AREAS"]), validationMiddleware(FindAreaDto), this.getAreas);
@@ -47,7 +47,7 @@ class JiraController implements Controller {
     //         next(new HttpException(400, error.message));
     //     }
     // }
-    private addJira = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    private getJiraOauthRequest = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         try {
             const secret = process.env.JWT_SECRET;
 
@@ -58,7 +58,8 @@ class JiraController implements Controller {
                 next(new HttpException(400, "User does not belong to that company"))
             } else {
                 console.log("/n/n/n/n/n/nllego hasta aqui5")
-                const newJira = await this.jiraService.addJira(jiraData);
+                const newJira = await this.jiraService.getJiraOauthRequest(jiraData);
+                console.log(newJira)
                 console.log("/n/n/n/n/n/nllego hasta aqui6")
                 response.status(201).send(newJira);
             }
