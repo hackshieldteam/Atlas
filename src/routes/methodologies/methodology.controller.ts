@@ -40,7 +40,7 @@ class MethodologyController implements Controller{
         try {
             const secret = process.env.JWT_SECRET;
             const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
-            const filters: FindMethodologyDto = request.body.length > 0 ? request.body : []
+            const filters: FindMethodologyDto[] = request.body.length > 0 ? request.body : []
             modifyEntries(filters)
             addCompanyFilter(filters,companies)
             const methodologies = await this.methodologyService.getMethodologies(filters,request.query.limit,request.query.offset);
