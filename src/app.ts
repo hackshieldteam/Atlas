@@ -33,6 +33,7 @@ class App {
         this.app.use("/", controllers[12].router);
         this.app.use("/", controllers[13].router);
         this.app.use("/", controllers[14].router);
+        this.app.use("/", controllers[15].router);
         this.initializeErrorHandling();
         // this.listen()
     }
