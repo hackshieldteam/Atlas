@@ -16,7 +16,7 @@ public addMethodology = async ( methodologyData : CreateMethodologyDto) => {
             case "23503":
                 throw new Error("Reference is missing")
             case "23505":
-                throw new Error("Area already exist")
+                throw new Error("Methodology already exist")
             default:
                 throw new Error("Unknown error");
         }
@@ -42,7 +42,7 @@ public getMethodology = async( filters,relations) => {
 
 public getMethodologies = async(filters : FindMethodologyDto[], limit, offset) => {
     try {
-        const methodologies = await this.methodologyRepository.findAndCount({ where : filters})
+        const methodologies = await this.methodologyRepository.findAndCount({ where : filters, relations : ["tests"]})
         return methodologies;
     } catch (error) {
         switch (error.code) {
