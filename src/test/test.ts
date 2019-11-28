@@ -48,217 +48,217 @@ describe('Atlas endpoints', () => {
             entityManager = await typeorm.getManager();
             //Companies
             await Promise.all([
-                entityManager.query("INSERT INTO t_company (id,name,description) VALUES (1,'C1','Company1')"),
-                entityManager.query("INSERT INTO t_company (id,name,description) VALUES (2,'NeoCompany','C2')"),
-                entityManager.query("INSERT INTO t_company (id,name,description) VALUES (3,'ModCompany','C3')"),
-                entityManager.query("INSERT INTO t_company (id,name,description) VALUES (4,'DelCompany','C4')"),
-                entityManager.query("INSERT INTO t_company (id,name,description) VALUES (5,'C5','Company5')"),
-                entityManager.query("INSERT INTO t_profile(id,name) VALUES (1,'Profile1')"),
-                entityManager.query("INSERT INTO t_profile(id,name) VALUES (2,'Profile2')"),
-                entityManager.query("INSERT INTO t_profile(id,name) VALUES (3,'ModProfile')"),
-                entityManager.query("INSERT INTO t_profile(id,name) VALUES (4,'DelProfile')"),
-                entityManager.query("INSERT INTO t_profile(id,name) VALUES (5,'VulnProfile')"),
+                entityManager.query('INSERT INTO t_company ("id","name","description") VALUES (1,\'C1\',\'Company1\')'),
+                entityManager.query('INSERT INTO t_company ("id","name","description") VALUES (2,\'NeoCompany\',\'C2\')'),
+                entityManager.query('INSERT INTO t_company ("id","name","description") VALUES (3,\'ModCompany\',\'C3\')'),
+                entityManager.query('INSERT INTO t_company ("id","name","description") VALUES (4,\'DelCompany\',\'C4\')'),
+                entityManager.query('INSERT INTO t_company ("id","name","description") VALUES (5,\'C5\',\'Company5\')'),
+                entityManager.query('INSERT INTO t_profile("id","name") VALUES (1,\'Profile1\')'),
+                entityManager.query('INSERT INTO t_profile("id","name") VALUES (2,\'Profile2\')'),
+                entityManager.query('INSERT INTO t_profile("id","name") VALUES (3,\'ModProfile\')'),
+                entityManager.query('INSERT INTO t_profile("id","name") VALUES (4,\'DelProfile\')'),
+                entityManager.query('INSERT INTO t_profile("id","name") VALUES (5,\'VulnProfile\')'),
             ]);
 
             //Areas
             await Promise.all([
-                entityManager.query("INSERT INTO t_area VALUES (1,'Area1',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (2,'Area2',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (3,'ModArea',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (4,'DelArea',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (5,'Area5',5)"),
-                entityManager.query("INSERT INTO t_user  VALUES (1,'User1','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (2,'User2','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',2)"),
-                entityManager.query("INSERT INTO t_user  VALUES (3,'ModUser','c',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (4,'DelUser','c',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (5,'User5','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',2)"),
-                entityManager.query("INSERT INTO t_user  VALUES (6,'User6','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (7,'User7','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',5)"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('CLOSE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ASSUME VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('FALSEPOSITIVE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('OPEN VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('REVISION VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'OPEN VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'CLOSE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'REVISION VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'FALSEPOSITIVE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ASSUME VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (5,'MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_responsable VALUES (1,'r1@mail.com','Resp1','611111111',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (2,'r2@mail.com','Resp2','622222222',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (3,'r3@mail.com','Resp3','633333333',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (4,'r4@mail.com','Resp4','644444444',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (5,'r5@mail.com','Resp5','655555555',5)")
+                entityManager.query('INSERT INTO t_area ("id","name","companyId") VALUES (1,\'Area1\',1)'),
+                entityManager.query('INSERT INTO t_area ("id","name","companyId") VALUES (2,\'Area2\',1)'),
+                entityManager.query('INSERT INTO t_area ("id","name","companyId") VALUES (3,\'ModArea\',1)'),
+                entityManager.query('INSERT INTO t_area ("id","name","companyId") VALUES (4,\'DelArea\',1)'),
+                entityManager.query('INSERT INTO t_area ("id","name","companyId") VALUES (5,\'Area5\',5)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (1,\'User1\',\'$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.\',1)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (2,\'User2\',\'$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.\',2)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (3,\'ModUser\',\'c\',1)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (4,\'DelUser\',\'c\',1)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (5,\'User5\',\'$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.\',2)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (6,\'User6\',\'$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.\',1)'),
+                entityManager.query('INSERT INTO t_user ("id","name","password","profileId")  VALUES (7,\'User7\',\'$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.\',5)'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET COMPANIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD COMPANIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY COMPANIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE COMPANIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET PROFILES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD PROFILES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY PROFILES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE PROFILES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET GROUPS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD GROUPS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY GROUPS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE GROUPS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET USERS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD USERS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY USERS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE USERS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET AREAS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD AREAS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY AREAS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE AREAS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET ASSETS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD ASSETS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY ASSETS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE ASSETS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET AUDITS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD AUDITS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY AUDITS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE AUDITS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET TAGS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD TAGS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY TAGS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE TAGS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET URLS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD URLS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY URLS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE URLS\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'GET VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ADD VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'MODIFY VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'DELETE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'CLOSE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'ASSUME VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'FALSEPOSITIVE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'OPEN VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_functionality("name") VALUES (\'REVISION VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET COMPANIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD COMPANIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY COMPANIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE COMPANIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET PROFILES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD PROFILES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY PROFILES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE PROFILES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET GROUPS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD GROUPS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY GROUPS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE GROUPS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET USERS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD USERS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY USERS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE USERS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET AREAS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD AREAS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY AREAS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE AREAS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET ASSETS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD ASSETS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY ASSETS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE ASSETS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE DEPARTMENTS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET AUDITS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD AUDITS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY AUDITS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE AUDITS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET TAGS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD TAGS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY TAGS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE TAGS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE INTEGRATIONS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE EVIDENCES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET URLS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD URLS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY URLS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE URLS\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'OPEN VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'CLOSE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'REVISION VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'FALSEPOSITIVE VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ASSUME VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (5,\'MODIFY VULNERABILITIES\')'),
+                entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (1,\'r1@mail.com\',\'Resp1\',\'611111111\',1)'),
+                entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (2,\'r2@mail.com\',\'Resp2\',\'622222222\',1)'),
+                entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (3,\'r3@mail.com\',\'Resp3\',\'633333333\',1)'),
+                entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (4,\'r4@mail.com\',\'Resp4\',\'644444444\',1)'),
+                entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (5,\'r5@mail.com\',\'Resp5\',\'655555555\',5)')
             ]);
 
             //Departments
             await Promise.all([
-                entityManager.query("INSERT INTO t_department VALUES (1,'Department1',1,1)"),
-                entityManager.query("INSERT INTO t_department VALUES (2,'NeoDepartment',1,1)"),
-                entityManager.query("INSERT INTO t_department VALUES (3,'ModDepartment',1,1)"),
-                entityManager.query("INSERT INTO t_department VALUES (4,'DelDepartment',1,1)"),
-                entityManager.query("INSERT INTO t_department VALUES (5,'Department5',5,5)")
+                entityManager.query('INSERT INTO t_department ("id","name","areaId","companyId") VALUES (1,\'Department1\',1,1)'),
+                entityManager.query('INSERT INTO t_department ("id","name","areaId","companyId") VALUES (2,\'NeoDepartment\',1,1)'),
+                entityManager.query('INSERT INTO t_department ("id","name","areaId","companyId") VALUES (3,\'ModDepartment\',1,1)'),
+                entityManager.query('INSERT INTO t_department ("id","name","areaId","companyId") VALUES (4,\'DelDepartment\',1,1)'),
+                entityManager.query('INSERT INTO t_department ("id","name","areaId","companyId") VALUES (5,\'Department5\',5,5)')
             ]);
 
             //Assets
             await Promise.all([
-                entityManager.query("INSERT INTO t_asset VALUES (1,'A1',0,3,3,0,3,'My first asset',0,'hgf1',3,0,'Asset 1',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (2,'NA',0,3,3,0,3,'NeoAsset',0,'hgf2',3,0,'Asset 2',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (3,'MA',0,3,3,0,3,'ModAsset',0,'hg3',3,0,'Asset 3',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (4,'DA',0,3,3,0,3,'DelAsset',0,'hgf4',3,0,'Asset 4',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (5,'A2',1,2,2,1,2,'My second asset',1,'hgf5',2,1,'Asset 5',1,'2020-01-01',3,0,92,5,5,5)")
+                entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (1,\'A1\',0,3,3,0,3,\'My first asset\',0,\'hgf1\',3,\'Asset 1\',0,\'2019-09-01\',3,0,100,1,1,1)'),
+                entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (2,\'NA\',0,3,3,0,3,\'NeoAsset\',0,\'hgf2\',3,\'Asset 2\',0,\'2019-09-01\',3,0,100,1,1,1)'),
+                entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (3,\'MA\',0,3,3,0,3,\'ModAsset\',0,\'hg3\',3,\'Asset 3\',0,\'2019-09-01\',3,0,100,1,1,1)'),
+                entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (4,\'DA\',0,3,3,0,3,\'DelAsset\',0,\'hgf4\',3,\'Asset 4\',0,\'2019-09-01\',3,0,100,1,1,1)'),
+                entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (5,\'A2\',1,2,2,1,2,\'My second asset\',1,\'hgf5\',2,\'Asset 5\',1,\'2020-01-01\',3,0,92,5,5,5)')
             ]);
 
             //URLs
             await Promise.all([
-                entityManager.query("INSERT INTO t_url VALUES (1,0,'Production',80,'www.asset1.com',1,1)"),
-                entityManager.query("INSERT INTO t_url VALUES (2,0,'Pre',80,'www.newasset1.com',1,1)"),
-                entityManager.query("INSERT INTO t_url VALUES (3,0,'Production',80,'www.modasset1.com',1,1)"),
-                entityManager.query("INSERT INTO t_url VALUES (4,0,'Production',80,'www.delasset.com',1,1)"),
-                entityManager.query("INSERT INTO t_url VALUES (5,1,'Pre',443,'www.pre-asset5.com',5,5)")
+                entityManager.query('INSERT INTO t_url ("id","kind","enviroment","port","url","assetId","companyId") VALUES (1,0,\'Production\',80,\'www.asset1.com\',1,1)'),
+                entityManager.query('INSERT INTO t_url ("id","kind","enviroment","port","url","assetId","companyId") VALUES (2,0,\'Pre\',80,\'www.newasset1.com\',1,1)'),
+                entityManager.query('INSERT INTO t_url ("id","kind","enviroment","port","url","assetId","companyId") VALUES (3,0,\'Production\',80,\'www.modasset1.com\',1,1)'),
+                entityManager.query('INSERT INTO t_url ("id","kind","enviroment","port","url","assetId","companyId") VALUES (4,0,\'Production\',80,\'www.delasset.com\',1,1)'),
+                entityManager.query('INSERT INTO t_url ("id","kind","enviroment","port","url","assetId","companyId") VALUES (5,1,\'Pre\',443,\'www.pre-asset5.com\',5,5)')
             ]);
 
             //Audits
             await Promise.all([
-                entityManager.query("INSERT INTO t_audit VALUES (1,'Audit',0,NULL,0,'My first audit','Audit1',1,'2019-12-12',0,'Acunetix',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1)"),
-                entityManager.query("INSERT INTO t_audit VALUES (2,'Revision',0,'2017-01-01',1,'NULL','NeoAudit',0,NULL,1,'Acunetix',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1)"),
-                entityManager.query("INSERT INTO t_audit VALUES (3,'Audit',0,'2017-06-06',1,'NULL','ModAudit',0,NULL,1,'Acunetix',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1)"),
-                entityManager.query("INSERT INTO t_audit VALUES (4,'Pentest',0,'2018-09-09',1,'NULL','DelAudit',0,NULL,1,'Acunetix',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1)"),
-                entityManager.query("INSERT INTO t_audit VALUES (5,'Audit',1,NULL,0,'','Audit5',0,NULL,0,'Nessus',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5)"),
-                entityManager.query("INSERT INTO t_company_users_user VALUES(1,1)"),
-                entityManager.query("INSERT INTO t_company_users_user VALUES(1,7)"),
-                entityManager.query("INSERT INTO t_company_users_user VALUES(5,1)"),
-                entityManager.query("INSERT INTO t_company_users_user VALUES(5,6)"),
-                entityManager.query("INSERT INTO t_group  VALUES (1,'Group1',1)"),
-                entityManager.query("INSERT INTO t_group  VALUES (2,'Group2',1)"),
-                entityManager.query("INSERT INTO t_group  VALUES (3,'ModGroup',1)"),
-                entityManager.query("INSERT INTO t_group  VALUES (4,'DelGroup',1)"),
-                entityManager.query("INSERT INTO t_group  VALUES (5,'Group5',5)")
+                entityManager.query('INSERT INTO t_audit ("id","kind","delivered","launched","methodology","notes","name","risk","scheduled","status","tool","assetId","urlId","companyId") VALUES (1,\'Audit\',0,NULL,0,\'My first audit\',\'Audit1\',1,\'2019-12-12\',0,\'Acunetix\',1,1,1)'),
+                entityManager.query('INSERT INTO t_audit ("id","kind","delivered","launched","methodology","notes","name","risk","scheduled","status","tool","assetId","urlId","companyId") VALUES (2,\'Revision\',0,\'2017-01-01\',1,\'NULL\',\'NeoAudit\',0,NULL,1,\'Acunetix\',1,1,1)'),
+                entityManager.query('INSERT INTO t_audit ("id","kind","delivered","launched","methodology","notes","name","risk","scheduled","status","tool","assetId","urlId","companyId") VALUES (3,\'Audit\',0,\'2017-06-06\',1,\'NULL\',\'ModAudit\',0,NULL,1,\'Acunetix\',1,1,1)'),
+                entityManager.query('INSERT INTO t_audit ("id","kind","delivered","launched","methodology","notes","name","risk","scheduled","status","tool","assetId","urlId","companyId") VALUES (4,\'Pentest\',0,\'2018-09-09\',1,\'NULL\',\'DelAudit\',0,NULL,1,\'Acunetix\',1,1,1)'),
+                entityManager.query('INSERT INTO t_audit ("id","kind","delivered","launched","methodology","notes","name","risk","scheduled","status","tool","assetId","urlId","companyId") VALUES (5,\'Audit\',1,NULL,0,\'\',\'Audit5\',0,NULL,0,\'Nessus\',5,5,5)'),
+                entityManager.query('INSERT INTO t_company_users_user ("companyId","userId") VALUES(1,1)'),
+                entityManager.query('INSERT INTO t_company_users_user ("companyId","userId") VALUES(1,7)'),
+                entityManager.query('INSERT INTO t_company_users_user ("companyId","userId") VALUES(5,1)'),
+                entityManager.query('INSERT INTO t_company_users_user ("companyId","userId") VALUES(5,6)'),
+                entityManager.query('INSERT INTO t_group ("id","name","companyId")  VALUES (1,\'Group1\',1)'),
+                entityManager.query('INSERT INTO t_group ("id","name","companyId")  VALUES (2,\'Group2\',1)'),
+                entityManager.query('INSERT INTO t_group ("id","name","companyId") VALUES (3,\'ModGroup\',1)'),
+                entityManager.query('INSERT INTO t_group ("id","name","companyId") VALUES (4,\'DelGroup\',1)'),
+                entityManager.query('INSERT INTO t_group ("id","name","companyId") VALUES (5,\'Group5\',5)')
             ]);
 
 
             //Vulnerabilities
             await Promise.all([
-                entityManager.query("INSERT INTO t_vulnerability VALUES (1,'2018-01-01','Description1','2018-01-01','Test1','Vuln1','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (2,'2018-01-01','Description2','2018-01-01','Test2','NeoVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (3,'2018-01-01','Description3','2018-01-01','Test3','ModVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (4,'2018-01-01','Description4','2018-01-01','Test4','DelVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (5,'2018-01-01','Description5','2018-01-01','Test5','Vuln5','2018-01-01',0,'Solution1',0,5,NULL,5)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (6,'2018-01-01','Description6','2018-01-01','Test6','OpenToCloseVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (7,'2018-01-01','Description7','2018-01-01','Test7','OpenToAssumedVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (8,'2018-01-01','Description8','2018-01-01','Test8','OpenToFalseVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (9,'2018-01-01','Description9','2018-01-01','Test9','RevisionToOpenVuln','2018-01-01',0,'Solution1',3,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (10,'2018-01-01','Description10','2018-01-01','Test10','RevisionToCloseVuln','2018-01-01',0,'Solution1',3,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (11,'2018-01-01','Description11','2018-01-01','Test11','AssumedVuln','2018-01-01',0,'Solution1',4,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (12,'2018-01-01','Description12','2018-01-01','Test12','FalsePositiveVuln1','2018-01-01',0,'Solution1',2,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (13,'2018-01-01','Description13','2018-01-01','Test13','CloseVuln','2018-01-01',0,'Solution1',1,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (14,'2018-01-01','Description14','2018-01-01','Test14','OpenToRevisionVuln','2018-01-01',0,'Solution1',0,1,NULL,1)"),
-                entityManager.query("INSERT INTO t_vulnerability VALUES (15,'2018-01-01','Description15','2018-01-01','Test15','AssumedToOpenVuln','2018-01-01',0,'Solution1',4,1,NULL,1)"),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (1,\'2018-01-01\',\'Description1\',\'2018-01-01\',\'Test1\',\'Vuln1\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (2,\'2018-01-01\',\'Description2\',\'2018-01-01\',\'Test2\',\'NeoVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (3,\'2018-01-01\',\'Description3\',\'2018-01-01\',\'Test3\',\'ModVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (4,\'2018-01-01\',\'Description4\',\'2018-01-01\',\'Test4\',\'DelVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (5,\'2018-01-01\',\'Description5\',\'2018-01-01\',\'Test5\',\'Vuln5\',\'2018-01-01\',0,\'Solution1\',0,5,NULL,5)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (6,\'2018-01-01\',\'Description6\',\'2018-01-01\',\'Test6\',\'OpenToCloseVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (7,\'2018-01-01\',\'Description7\',\'2018-01-01\',\'Test7\',\'OpenToAssumedVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (8,\'2018-01-01\',\'Description8\',\'2018-01-01\',\'Test8\',\'OpenToFalseVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (9,\'2018-01-01\',\'Description9\',\'2018-01-01\',\'Test9\',\'RevisionToOpenVuln\',\'2018-01-01\',0,\'Solution1\',3,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (10,\'2018-01-01\',\'Description10\',\'2018-01-01\',\'Test10\',\'RevisionToCloseVuln\',\'2018-01-01\',0,\'Solution1\',3,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (11,\'2018-01-01\',\'Description11\',\'2018-01-01\',\'Test11\',\'AssumedVuln\',\'2018-01-01\',0,\'Solution1\',4,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (12,\'2018-01-01\',\'Description12\',\'2018-01-01\',\'Test12\',\'FalsePositiveVuln1\',\'2018-01-01\',0,\'Solution1\',2,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (13,\'2018-01-01\',\'Description13\',\'2018-01-01\',\'Test13\',\'CloseVuln\',\'2018-01-01\',0,\'Solution1\',1,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (14,\'2018-01-01\',\'Description14\',\'2018-01-01\',\'Test14\',\'OpenToRevisionVuln\',\'2018-01-01\',0,\'Solution1\',0,1,NULL,1)'),
+                entityManager.query('INSERT INTO t_vulnerability ("id","communication_date","description","discovery_date","executedText","name","resolution_date","risk","solution","status","auditId","linkedVulnerabilityId","companyId") VALUES (15,\'2018-01-01\',\'Description15\',\'2018-01-01\',\'Test15\',\'AssumedToOpenVuln\',\'2018-01-01\',0,\'Solution1\',4,1,NULL,1)'),
             ]);
 
             /*/Evidences
@@ -268,23 +268,23 @@ describe('Atlas endpoints', () => {
 
             //Groups-Users
             await Promise.all([
-                entityManager.query("INSERT INTO t_group_users_user VALUES (1,1)"),
-                entityManager.query("INSERT INTO t_group_users_user VALUES (5,1)"),
-                entityManager.query("INSERT INTO t_group_users_user VALUES (5,5)"),
-                entityManager.query("INSERT INTO t_group_users_user VALUES (5,6)"),
-                entityManager.query("INSERT INTO t_group_assets_asset VALUES (1,1)"),
-                entityManager.query("INSERT INTO t_group_assets_asset VALUES (1,2)"),
-                entityManager.query("INSERT INTO t_group_assets_asset VALUES (5,5)"),
-                entityManager.query("INSERT INTO t_integration VALUES(1,0,'Integration1',2,4,'2019-12-01',0,'2019-11-01',1)"),
-                entityManager.query("INSERT INTO t_integration VALUES(2,0,'NeoIntegration1',2,4,'2019-12-01',0,'2019-11-01',1)"),
-                entityManager.query("INSERT INTO t_integration VALUES(3,0,'ModIntegration1',2,4,'2019-12-01',0,'2019-11-01',1)"),
-                entityManager.query("INSERT INTO t_integration VALUES(4,0,'DelIntegration1',2,4,'2019-12-01',0,'2019-11-01',1)"),
-                entityManager.query("INSERT INTO t_integration VALUES(5,0,'Integration5',2,4,'2019-12-01',0,'2019-11-01',5)")
+                entityManager.query('INSERT INTO t_group_users_user ("groupId","userId") VALUES (1,1)'),
+                entityManager.query('INSERT INTO t_group_users_user ("groupId","userId") VALUES (5,1)'),
+                entityManager.query('INSERT INTO t_group_users_user ("groupId","userId") VALUES (5,5)'),
+                entityManager.query('INSERT INTO t_group_users_user ("groupId","userId") VALUES (5,6)'),
+                entityManager.query('INSERT INTO t_group_assets_asset ("groupId","assetId") VALUES (1,1)'),
+                entityManager.query('INSERT INTO t_group_assets_asset ("groupId","assetId") VALUES (1,2)'),
+                entityManager.query('INSERT INTO t_group_assets_asset ("groupId","assetId") VALUES (5,5)'),
+                entityManager.query('INSERT INTO t_integration ("id","kind","comment","ndone","ntotal","papDate","status","startDate","assetId") VALUES(1,0,\'Integration1\',2,4,\'2019-12-01\',0,\'2019-11-01\',1)'),
+                entityManager.query('INSERT INTO t_integration ("id","kind","comment","ndone","ntotal","papDate","status","startDate","assetId") VALUES(2,0,\'NeoIntegration1\',2,4,\'2019-12-01\',0,\'2019-11-01\',1)'),
+                entityManager.query('INSERT INTO t_integration ("id","kind","comment","ndone","ntotal","papDate","status","startDate","assetId") VALUES(3,0,\'ModIntegration1\',2,4,\'2019-12-01\',0,\'2019-11-01\',1)'),
+                entityManager.query('INSERT INTO t_integration ("id","kind","comment","ndone","ntotal","papDate","status","startDate","assetId") VALUES(4,0,\'DelIntegration1\',2,4,\'2019-12-01\',0,\'2019-11-01\',1)'),
+                entityManager.query('INSERT INTO t_integration ("id","kind","comment","ndone","ntotal","papDate","status","startDate","assetId") VALUES(5,0,\'Integration5\',2,4,\'2019-12-01\',0,\'2019-11-01\',5)')
             ]);
 
             await Promise.all([
-                entityManager.query("INSERT INTO t_responsable_to_asset VALUES(1,1,'RFA','Approval')"),
-                entityManager.query("INSERT INTO t_responsable_to_asset VALUES(5,5,'RFA','Approval')"),
+                entityManager.query('INSERT INTO t_responsable_to_asset ("responsableId","assetId","role","info") VALUES(1,1,\'RFA\',\'Approval\')'),
+                entityManager.query('INSERT INTO t_responsable_to_asset ("responsableId","assetId","role","info") VALUES(5,5,\'RFA\',\'Approval\')'),
                 entityManager.query("ALTER SEQUENCE t_user_id_seq RESTART WITH 8"),
                 entityManager.query("ALTER SEQUENCE t_evidence_id_seq RESTART WITH 1"),
                 entityManager.query("ALTER SEQUENCE t_vulnerability_id_seq RESTART WITH 16"),
@@ -374,7 +374,7 @@ describe('Atlas endpoints', () => {
         await entityManager.query("DELETE FROM t_area");
         await entityManager.query("DELETE FROM t_profile");
         await entityManager.query("DELETE FROM t_company");
-        await connection.close()        
+        await connection.close()
         await app.closeServer()
         process.kill(process.pid, 'SIGTERM')
     });
@@ -918,7 +918,7 @@ describe('Atlas endpoints', () => {
 
             it("It is mandatory to be logged to use the endpoint", (done) => {
                 request(app.getServer())
-                .post("/users/search")
+                    .post("/users/search")
                     .then(res => {
                         equal(res.status, 401);
                         done()
@@ -926,7 +926,7 @@ describe('Atlas endpoints', () => {
             });
             it("Without filters, all users are recovered", (done) => {
                 request(app.getServer())
-                .post("/users/search")
+                    .post("/users/search")
                     .set("XToken", token)
                     .then(res => {
                         equal(res.status, 200);
@@ -936,7 +936,7 @@ describe('Atlas endpoints', () => {
             });
             it("It is possible to filter users by name", (done) => {
                 request(app.getServer())
-                .post("/users/search")
+                    .post("/users/search")
                     .send([{ "name": "Del" }])
                     .set("XToken", token)
                     .then(res => {
@@ -2238,7 +2238,6 @@ describe('Atlas endpoints', () => {
                             id: 1
                         }, enviroment: 0,
                         kind: 0,
-                        location: 0,
                         status: 0,
                         visibility: 0,
                     })
@@ -2260,7 +2259,6 @@ describe('Atlas endpoints', () => {
                             id: 1
                         }, enviroment: 0,
                         kind: 0,
-                        location: 0,
                         status: 0,
                         visibility: 0
                     })
@@ -2280,7 +2278,6 @@ describe('Atlas endpoints', () => {
                             id: 1
                         }, enviroment: 0,
                         kind: 0,
-                        location: 0,
                         status: 0,
                         visibility: 0
                     })
@@ -2394,7 +2391,7 @@ describe('Atlas endpoints', () => {
             });
             it("It is mandatory to be logged to use the endpoint", (done) => {
                 request(app.getServer())
-                .post("/audits/search")
+                    .post("/audits/search")
                     .then(res => {
                         equal(res.status, 401);
                         done()
@@ -2402,7 +2399,7 @@ describe('Atlas endpoints', () => {
             });
             it("Users can only see audits which belong to their companies", (done) => {
                 request(app.getServer())
-                .post("/audits/search")
+                    .post("/audits/search")
                     .set("XToken", tokenCompany2)
                     .then(res => {
                         equal(res.status, 200);
@@ -2412,7 +2409,7 @@ describe('Atlas endpoints', () => {
             });
             it("It is possible to filter audits by name", (done) => {
                 request(app.getServer())
-                .post("/audits/search")
+                    .post("/audits/search")
                     .send([{ name: "1" }])
                     .set("XToken", token)
                     .then(res => {
@@ -2744,7 +2741,7 @@ describe('Atlas endpoints', () => {
             });
             it("It is mandatory to be logged to use the endpoint", (done) => {
                 request(app.getServer())
-                .post("/vulnerabilities/search")
+                    .post("/vulnerabilities/search")
                     .then(res => {
                         equal(res.status, 401);
                         done()
@@ -2752,7 +2749,7 @@ describe('Atlas endpoints', () => {
             });
             it("Users can only see vulnerabilities which belong to their groups", (done) => {
                 request(app.getServer())
-                .post("/vulnerabilities/search")
+                    .post("/vulnerabilities/search")
                     .set("XToken", tokenCompany2)
                     .then(res => {
                         equal(res.status, 200);
@@ -2762,7 +2759,7 @@ describe('Atlas endpoints', () => {
             });
             it("It is possible to filter vulnerabilities by name", (done) => {
                 request(app.getServer())
-                .post("/vulnerabilities/search")
+                    .post("/vulnerabilities/search")
                     .send([{ name: "ssumedT" }])
                     .set("XToken", token)
                     .then(res => {
