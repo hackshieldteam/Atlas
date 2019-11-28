@@ -6,7 +6,7 @@ import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
 import { request } from "https";
 import HttpException from "../exceptions/HTTPException";
-import { modifyEntries, addCompanyFilter } from "utils/modifyEntries";
+import { modifyEntries, addCompanyFilter } from "../../utils/modifyEntries";
 import * as jwt from 'jsonwebtoken';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import MethodologyService from "./methodology.service";
@@ -26,9 +26,9 @@ class MethodologyController implements Controller{
     }
 
     private initializeRoutes() {
-        this.router.post(this.path, authMiddleware, permissionMiddleware(["ADD METHODOLOGIES"]), validationMiddleware(CreateMethodologyDto), this.addMethodology);
+        this.router.post(this.path, authMiddleware, permissionMiddleware(["ADD METHODOLOGIES"]), this.addMethodology);
         this.router.all(this.path + "/*", authMiddleware);
-        this.router.post(this.path + "/search", permissionMiddleware(["GET METHODOLOGIES"]), validationMiddleware(FindMethodologyDto), this.getMethodology);
+        this.router.post(this.path + "/search", permissionMiddleware(["GET METHODOLOGIES"]), validationMiddleware(FindMethodologyDto), this.getMethodologies);
         this.router.get(this.path + "/:id", permissionMiddleware(["GET METHODOLOGIES"]), this.getMethodology);
         this.router.get(this.path + "/:id/departments", permissionMiddleware(["GET METHODOLOGIES", "GET TESTS"]), validationMiddleware(FindMethodologyDto), this.getMethodologyTests);
         this.router.patch(this.path + "/:id", permissionMiddleware(["MODIFY METHODOLOGIES"]), validationMiddleware(UpdateMethodologyDto), this.modifyMethodology);
@@ -46,6 +46,7 @@ class MethodologyController implements Controller{
             const methodologies = await this.methodologyService.getMethodologies(filters,request.query.limit,request.query.offset);
             response.status(200).send(methodologies)            
         } catch (error) {
+
             next(new HttpException(400,error.message))
         }
     }
@@ -60,7 +61,7 @@ class MethodologyController implements Controller{
                 next(new HttpException(400, "User does not belong to that company"))
             } else {
                 const newMethodology = await this.methodologyService.addMethodology(methodologyData);
-                response.status(201).send(newMethodology);
+                response.status(200).send(newMethodology);
             }
         } catch (error) {
             next(new HttpException(400,error.message))
@@ -74,8 +75,8 @@ class MethodologyController implements Controller{
             this.setFilters(request,filterCompanies)
             const methodology : Methodology = await this.methodologyService.modifyMethodology(request.params.id,methodologyData)
             if(methodology)
-                response.status(200).send(methodology)
-            else next(new HttpException(404, "Area does not exist"))
+                response.status(201).send(methodology)
+            else next(new HttpException(404, "Methodology does not exist"))
         } catch (error) {
             next(new HttpException(400,error.message))
         }
@@ -101,7 +102,7 @@ private getMethodology = async (request : express.Request,response : express.Res
         const methodology : Methodology = await this.findMethodology(request,["tests"])
         if(methodology){
             response.send(methodology)
-        }else next(new HttpException(400,"Methodology does not exist"));
+        }else next(new HttpException(404,"Methodology does not exist"));
     } catch (error) {
         next(new HttpException(400, error.message))
     }
