@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from "typeorm";
-import { IsDefined, IsString, ValidateNested } from "class-validator";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import { IsDefined, IsString, ValidateNested, IsArray } from "class-validator";
 import Methodology from "../methodologies/methodology.entity";
 import User from "../users/user.entity";
 import { Type } from "class-transformer";
 import Company from "../companies/company.entity";
+import Test_Instance from "../test_instance/test_instance.entity";
 
 
 
@@ -22,15 +23,19 @@ name : string
 @Column("text")
 description : string
 
-@ValidateNested()
-@Type(() => User)
-@ManyToOne(type => User, (user : User) => user.tests)
-user : User;
 
 @ValidateNested()
 @Type(() => Methodology)
 @ManyToOne(type => Methodology, (methodology : Methodology) => methodology.tests)
 methodology : Methodology
+
+@ValidateNested({
+    each : true
+})
+@IsArray()
+@OneToMany(type => Test_Instance, test_instance => test_instance.company)
+instances : Test_Instance[]
+
 
 
 @ValidateNested()

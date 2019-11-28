@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany} from "typeorm";
 import Vulnerability from "../vulnerabilities/vulnerability.entity"
+import Test_Instance from "../test_instance/test_instance.entity";
 
 @Entity()
 class Evidence{
@@ -18,6 +19,9 @@ class Evidence{
 
     @ManyToOne(() => Vulnerability, vulnerability => vulnerability.evidences, { onDelete : "CASCADE"})
     vulnerability : Vulnerability;
+
+    @ManyToMany(()=> Test_Instance, test_instance => test_instance.evidences,{ onDelete : "CASCADE"})
+    test_instance : Test_Instance;
 }
 
 export default Evidence;

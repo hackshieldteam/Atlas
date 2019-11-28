@@ -13,6 +13,7 @@ import Tag from "../tags/tag.entity";
 import { Type } from "class-transformer";
 import Test from "../tests/test.entity";
 import Methodology from "../methodologies/methodology.entity";
+import Test_Instance from "../test_instance/test_instance.entity";
 
 @Entity()
 class Company{
@@ -106,6 +107,12 @@ class Company{
     @OneToMany( type => Test, test => test.company)
     test : Test[]
 
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @OneToMany(type => Test_Instance, test_instance => test_instance.company)
+    test_instances : Test_Instance[]
 
     @ValidateNested({
         each : true
