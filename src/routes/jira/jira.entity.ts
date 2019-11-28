@@ -17,7 +17,7 @@ class Jira{
     consumerKey : string;
 
     @Column("varchar",{ length : 250 , unique : true})
-    consumerPrivateKeyPath : string;
+    consumerPrivateKey : string;
 
     @Column("varchar",{ length : 250 , unique : true})
     accessToken : string;

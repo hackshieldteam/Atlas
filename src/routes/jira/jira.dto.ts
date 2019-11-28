@@ -19,7 +19,7 @@ class CreateJiraDto {
 
     @IsOptional()
     @IsString()
-    public consumerPrivateKeyPath: string;
+    public consumerPrivateKey: string;
 
     @IsDefined()
     @IsString()

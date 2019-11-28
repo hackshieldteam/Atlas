@@ -17,7 +17,7 @@ class JiraService {
             var consumer =   new OAuth(jiraData.homePath + "/plugins/servlet/oauth/request-token",
                 jiraData.homePath + "/plugins/servlet/oauth/access-token",
                 jiraData.consumerKey,
-                jiraData.consumerPrivateKeyPath,
+                jiraData.consumerPrivateKey,
                 "1.0",
                 "http://localhost:8090/sessions/callback",
                 "RSA-SHA1",

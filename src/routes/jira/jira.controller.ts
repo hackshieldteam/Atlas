@@ -67,10 +67,10 @@ class JiraController implements Controller {
                 next(new HttpException(400,'ConsumerKey parameter is mandatory'))
                 return;
             }
-            if(request.body.consumerPrivateKeyPath){
-                jiraData["consumerPrivateKeyPath"] = request.body.consumerPrivateKeyPath
+            if(request.body.consumerPrivateKey){
+                jiraData["consumerPrivateKey"] = request.body.consumerPrivateKey
             }else{
-                next(new HttpException(400,'ConsumerPrivateKeyPath parameter is mandatory'))
+                next(new HttpException(400,'ConsumerPrivateKey parameter is mandatory'))
                 return;
             }
             if(request.body.accessToken){
