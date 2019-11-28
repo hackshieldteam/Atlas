@@ -1,0 +1,3229 @@
+openapi: 3.0.0
+info:
+  version: '1'
+  title: 'IndexOf API'
+  description: ''
+paths:
+  /areas/{areaId}:
+    get:
+      summary: Gets information about one specific area
+      description: Gets information about one specific area
+      parameters: 
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns the area
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Area does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one area from the system
+      description: Deletes one area from the system
+      parameters: 
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: The area has been deleted
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Area does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    patch:
+      summary: Updates the information about one specific area
+      parameters: 
+        - name: areaId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific area
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                company:
+                  type: integer
+      responses:
+        '204':
+          description: The area has been modified
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Area does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '409':
+            $ref: '#/components/responses/409ResourceExist'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /areas/{areaId}/assets:
+    get:
+      summary: Returns an array of assets that belong to the specified area
+      description: Returns an array of assets that belong to the specified area
+      parameters: 
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of assets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401NoAuthorized'
+        '404':
+          description: Area does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /areas/{areaId}/departments:
+  /areas/:
+    get:
+      summary: Returns an array of areas that fulfills the requirements
+      description: Returns a list of areas
+      parameters:
+        - name: name
+          in: query
+          schema:
+              type: string
+        - name: company
+          in: query
+          schema:
+              type: integer
+      responses:
+        '200':
+          description: Succesfully returns a list of areas
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+        summary: Adds a new area
+        description : Adds a new area
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                    type: object
+                    required:
+                      - name
+                      - company
+                    properties:
+                      company:
+                        type: integer            
+                      name:
+                        type: string
+        responses:
+          '201':
+            description: Succesfully created a new area
+            headers:
+              Location:
+                schema:
+                  type: integer
+                description: URL to the created area
+          '400':
+            $ref: '#/components/responses/400Invalid'
+          '401':
+            $ref: '#/components/responses/401Unauthorized'
+          '409':
+            $ref: '#/components/responses/409ResourceExist'
+          '500':
+            $ref: '#/components/responses/500Unknown'        
+  /assets/{assetId}/tags:
+  /assets/{assetId}/integrations:
+  /assets/{assetId}/audits:
+    get:
+      summary: Returns an array of audits that have been done to a specific asset
+      description: Returns a list of audits
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of audits
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Audit'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Asset does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+      summary: Adds a new audit to the specified asset
+      description: Adds a new audit to the specified asset
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - asset
+                - name
+                - status
+                - delivered
+                - launched
+                - scheduled
+                - methodology
+                - tool
+                - class
+              properties:
+                asset:
+                  type: integer
+                class:
+                  type: integer
+                delivered:
+                  type: integer
+                launched:
+                  type: string
+                methodology:
+                  type: integer
+                notes:
+                  type: string
+                risk:
+                  type: number
+                scheduled:
+                  type: string
+                status:
+                  type: integer
+                tool:
+                  type: string
+                url :
+                  type: integer
+      responses:
+        '201':
+          description: Succesfully created a new audit
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created audit
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'   
+  /assets/{assetId}/urls:
+    post:
+      summary: Adds a new url to the specific asset
+      description : Adds a new url to the specific asset
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                  type: object
+                  required:
+                    - asset #tentative
+                    - enviroment
+                    - port
+                    - url
+                  properties:
+                      asset: #tentative
+                        type: integer
+                      enviroment:
+                        type: string
+                      port:
+                        type: integer
+                      url:
+                        type: string
+      responses:
+      '201':
+        description: Succesfully created a new url
+        headers:
+          Location:
+            schema:
+              type: integer
+            description: URL to the created asset
+      '400':
+        $ref: '#/components/responses/400NotValid'
+      '401':
+        $ref: '#/components/responses/401Unauthorized'
+      '500':
+        $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Returns an array of urls that have belong to a specific asset
+      description: Returns a list of urls
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of urls
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Url'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Asset does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /assets/{assetId}:
+    put:
+      summary: Updates the information about one specific asset
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific asset
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessDescription:
+                  type: string
+                activityDescription:
+                  type: string
+                activityLogs:
+                  type: integer
+                addUrls:
+                  type: array
+                  items:
+                    type: string
+                addEnv:
+                  type: array
+                  items:
+                    type: string
+                addPort:
+                  type: array
+                  items:
+                    type: integer
+                alerts:
+                  type: integer
+                alias:
+                  type: string
+                area:
+                  type: integer
+                authenLogs:
+                  type: integer
+                authentication:
+                  type: integer
+                authorization:
+                  type: integer
+                availability:
+                  type: integer
+                class:
+                  type: integer
+                confidenciality:
+                  type: integer
+                description:
+                  type: string
+                deleteUrls:
+                  type: array
+                  items:
+                    type: integer
+                envs:
+                  type: array
+                  items:
+                    type: string
+                gcu:
+                  type: integer
+                gcuDescription:
+                  type: string
+                hgf:
+                  type: string
+                ids:
+                  type: array
+                  items:
+                    type: integer
+                integrity:
+                  type: integer
+                modifyId:
+                  type: array
+                  items:
+                    type: integer
+                modifyUrls:
+                  type: array
+                  items:
+                    type: string
+                modifyEnv:
+                  type: array
+                  items:
+                    type: string
+                modifyPort:
+                  type: array
+                  items:
+                    type: integer
+                name:
+                  type: string
+                pDelivery:
+                  type: integer
+                pExplotation:
+                  type: integer
+                pHosting:
+                  type: integer
+                ports:
+                  type: array
+                  items:
+                    type: integer
+                rArea:
+                  type: integer
+                rDelivery:
+                  type: integer
+                reports:
+                  type: integer
+                rExplotation:
+                  type: integer
+                rFunctionality:
+                  type: integer
+                status:
+                  type: integer
+                trazability:
+                  type: integer
+                url:
+                  type: array
+                  items:
+                    type: string
+                visibility:
+                  type: integer
+      responses:
+        '204':
+          description: The asset has been modified
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Asset does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Gets information about one specific asset
+      description: Gets information about one specific asset
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an asset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Asset does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one asset from the system
+      description: When the asset is deleted, its URLs, related audits and vulnerabilities are deleted
+      parameters: 
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The asset has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Asset does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /assets:
+    post:
+      summary: Adds a new asset
+      description: Adds a new asset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required :
+                - name
+                - class
+                - visibility
+                - area
+              properties:
+                accessDescription:
+                  type: string
+                activityDescription:
+                  type: string
+                activityLogs:
+                  type: integer
+                alerts:
+                  type: integer
+                alias:
+                  type: string
+                area:
+                  type: integer
+                authenLogs:
+                  type: integer
+                authentication:
+                  type: integer
+                authorization:
+                  type: integer
+                availability:
+                  type: integer
+                class:
+                  type: integer
+                confidenciality:
+                  type: integer
+                description:
+                  type: string
+                gcu:
+                  type: integer
+                gcuDescription:
+                  type: string
+                hgf:
+                  type: string
+                integrity:
+                  type: integer
+                name:
+                  type: string
+                pDelivery:
+                  type: integer
+                pExplotation:
+                  type: integer
+                pHosting:
+                  type: integer
+                rArea:
+                  type: integer
+                rDelivery:
+                  type: integer
+                reports:
+                  type: integer
+                rExplotation:
+                  type: integer
+                rFunctionality:
+                  type: integer
+                status:
+                  type: integer
+                url:
+                  type: array
+                  items:
+                    type: string
+                envs:
+                  type: array
+                  items:
+                    type: string
+                ports:
+                  type: array
+                  items:
+                    type: integer
+                ids:
+                  type: array
+                  items:
+                    type: integer
+                trazability:
+                  type: integer
+                visibility:
+                  type: integer
+      responses:
+        '201':
+          description: Succesfully created a new asset
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created asset
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Returns an array of assets that fulfills the requirements
+      description: Returns a list of assets
+      parameters:
+        - name: activityLogs
+          in: query
+          description: Status of the activity logs
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary : The activity logs are not available
+            one:
+              value: 1
+              summary : The activity logs are being working on
+            two:
+              value: 2
+              summary : The activity logs are done
+        - name: alerts
+          description: Number of alerts defined for the asset's activity
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+        - name: alias
+          description: Asset's alias
+          in: query
+          schema:
+            type: string
+        - name: area
+          description: Area's identifier 
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: audited
+          description: Assets that have been audited or not
+          in: query
+          schema:
+            type: boolean
+        - name: authenLogs
+          description: Status of the authentication logs.
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary : The authentication logs are not available
+            one:
+              value: 1
+              summary : The authentication logs are being working on
+            two:
+              value: 2
+              summary : The authentication logs are done
+        - name: authentication
+          description: Authentication mechanism used by the asset
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary: LDAP
+            one:
+              value: 1
+              summary: COSMOS
+            two:
+              value: 2
+              summary: OAM
+        - name: authorization
+          description: Authorization level, from 0 to 4
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4]
+        - name: availability
+          description: Availability level, from 0 to 4
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4]
+        - name: class
+          description: Asset's type
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4,5]
+          examples:
+            zero:
+              value: 0
+              summary: Web application
+            one:
+              value: 1
+              summary: Mobile app
+            two:
+              value: 2
+              summary: Standalone client
+            three:
+              value: 3
+              summary: Web service
+            four:
+              value: 4
+              summary: Hardware device
+            five:
+              value: 5
+              summary: Infrastructure
+        - name: confidenciality
+          description: Confidenciality level, from 0 to 4
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4]
+        - name: gcu
+          description: Status of the user management proccess
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary : User management is not operative
+            one:
+              value: 1
+              summary : User management is being deployed
+            two:
+              value: 2
+              summary : User management is being done
+        - name: hgf
+          description: HGF project code
+          in: query
+          schema:
+            type: string
+        - name: integrity
+          description: Integrity level, from 0 to 4
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4]
+        - name: limit
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: integer
+            minimum: 1
+        - name: name
+          description: Asset's name
+          in: query
+          schema:
+            type: string
+        - name: pDelivery
+          description: Delivery provider's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: pExplotation
+          description: Explotation provider's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: pHosting
+          description: Hosting provider's id
+          in: query
+          schema:
+            type: integer
+            minimum : 1
+        - name: offset
+          in: query
+          description: Specifies the page number of the assets to be displayed
+          schema:
+            type: integer
+        - name: rArea
+          description: Area responsable's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: rDelivery
+          description: Delivery responsable's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: reports
+          description: Number of reports created for the designed asset
+          in: query
+          schema:
+            type: integer
+            minimum : 0    
+        - name: rExplotation
+          description: Explotation responsable's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: rFunctionality
+          description: Functionality responsable's id
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: status
+          description: Asset lifecycle status
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3]
+          examples:
+            zero:
+              value: 0
+              summary: Decommissioned
+            one:
+              value: 1
+              summary: To be decommissioned
+            two:
+              value: 2
+              summary: On development
+            three:
+              value: 3
+              summary: Production
+        - name: trazability
+          description: Trazability level, from 0 to 4
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2,3,4]
+        - name: url
+          description: Asset url
+          in: query
+          schema:
+            type: string
+        - name: visibility
+          description: Asset's visibility
+          in: query
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary: Asset is accesible only from the internal network
+            one:
+              value: 1
+              summary: Asset is from the internet
+            two:
+              value: 2
+              summary: Asset is accesible via VPN
+      responses:
+        '200':
+          description: Succesfully returns a list of assets
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /audits/{auditId}/vulnerabilities:
+    get:
+      summary: Returns an array of vulnerabilities that have been found during a specific audit
+      description: Returns a list of vulnerabilities
+      parameters: 
+        - name: auditId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of vulnerabilities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vulnerability'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Audit does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+      summary: Adds a new vulnerability to the specified audit
+      description: When a vulnerability is added, the audit's risk and its vulnerability count are updated
+      parameters: 
+        - name: auditId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                  type: object
+                  required :
+                    - name
+                    - risk
+                    - description
+                    - solution
+                    - audit
+                    - executedTest
+                  properties:
+                    audit:
+                      type: integer
+                    description:
+                      type: string
+                    executedTest:
+                      type: string
+                    name:
+                      type: string
+                    risk:
+                      type: integer
+                    solution:
+                      type: string
+      responses:
+        '201':
+          description: Succesfully created a new vulnerability
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created vulnerability
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'   
+  /audits/{auditId}:
+    put:
+      summary: Updates the information about one specific audit
+      parameters: 
+        - name: auditId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific audit
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                class:
+                  type: string
+                delivered:
+                  type: integer
+                methodology:
+                  type: integer
+                name:
+                  type: string
+                notes:
+                  type: string
+                scheduled:
+                  type: string
+                tool:
+                  type: string
+      responses:
+        '204':
+          description: The audit has been modified
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Audit does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Gets information about one specific audit
+      description: Gets information about one specific audit
+      parameters: 
+        - name: auditId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an audit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audit'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Audit does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one audit from the system
+      description: When the audit is deleted, its vulnerabilities are deleted too
+      parameters: 
+        - name: auditId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The audit has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audit'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Audit does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'              
+  /audits:
+    post:
+      summary: Adds a new audit
+      description: Adds a new audit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - asset
+                - name
+                - status
+                - delivered
+                - launched
+                - scheduled
+                - methodology
+                - tool
+                - class
+              properties:
+                asset:
+                  type: integer
+                class:
+                  type: integer
+                delivered:
+                  type: integer
+                launched:
+                  type: string
+                methodology:
+                  type: integer
+                notes:
+                  type: string
+                risk:
+                  type: number
+                scheduled:
+                  type: string
+                status:
+                  type: integer
+                tool:
+                  type: string
+                url :
+                  type: integer
+      responses:
+        '201':
+          description: Succesfully created a new audit
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created audit
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Returns an array of audits that fulfills the requirements
+      description: Returns a list of audits
+      parameters: 
+        - name: after
+          in: query
+          description: Audits done after this date
+          schema:
+            type: string
+        - name: area
+          in: query
+          description: Audits done to a specific area assets 
+          schema:
+            type: integer
+        - name: before
+          in: query
+          description: Audits done before this date
+          schema:
+            type: string
+        - name: class
+          in: query
+          description: Assesment type
+          schema:
+            type: string
+        - name: delivered
+          in: query
+          description: Has the audit been delivered?
+          schema:
+            type: integer
+            enum: [0,1]
+          examples:
+            zero:
+              value: 0
+              summary: The audit results were not delivered
+            one:
+              value: 1
+              summary: The audit results were delivered
+        - name: limit
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: integer
+            minimum: 1
+        - name: methodology
+          in: query
+          description: Knowdledge level
+          schema:
+            type: integer
+            enum: [0,1,2]
+          examples:
+            zero:
+              value: 0
+              summary: Black box
+            one:
+              value: 1
+              summary: Gray box
+            two:
+              value: 2
+              summary: White box
+        - name: name
+          in: query
+          description: Audit's name
+          schema:
+            type: string
+        - name: notes
+          in: query
+          description: Notes about the audit
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Specifies the page number of audits to be displayed
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Audit requested or created
+          schema:
+            type: integer
+            enum: [0,1]
+          examples:
+            zero:
+              value: 0
+              summary: The audit has been requested
+            one:
+              value: 1
+              summary: The audit has been created by an audit
+        - name: tool
+          in: query
+          description: Who did the audit?
+          schema:
+            type: string
+        - name: url
+          in: query
+          description: The url that was audited
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of audits
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Audit'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /companies/{companyId}:
+    get:
+      summary: Gets information about one specific company
+      description: Gets information about one specific company
+      parameters: 
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns a company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Company does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one company
+      description: Deletes one company
+      parameters: 
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: The company has been deleted
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Company does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    put:
+      summary: Updates the information about one specific company
+      parameters: 
+        - name: companyId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific company
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '204':
+          description: The company has been modified
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Company does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '409':
+            $ref: '#/components/responses/409ResourceExist'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /companies/{companyId}/areas:
+    get:
+      summary: Returns an array of areas that belong to the specified company
+      description: Returns an array of areas that belong to the specified company
+      parameters: 
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of areas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Company does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /companies/{companyId}/groups:
+  /companies/:
+    get:
+      summary: Returns an array of companies that fulfills the requirements
+      description: Returns a list of companies
+      parameters:
+        - name: name
+          in: query
+          schema:
+              type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of companies
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+        summary: Adds a new company
+        description : Adds a new company
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                    type: object
+                    required:
+                      - name
+                    properties:
+                      description:
+                        type: string            
+                      name:
+                        type: string
+        responses:
+          '201':
+            description: The company has been created
+            headers:
+              Location:
+                schema:
+                  type: integer
+                description: URL to the created company
+          '400':
+            $ref: '#/components/responses/400Invalid'
+          '401':
+            $ref: '#/components/responses/401Unauthorized'
+          '409':
+            $ref: '#/components/responses/409ResourceExist'
+          '500':
+            $ref: '#/components/responses/500Unknown'
+  /departments:
+  /groups/{groupId}:
+  /groups/{groupId}/assets:
+  /groups/{groupId}/users:  
+  /groups:
+  /integrations/{integrationId}:
+  /integrations:
+  /networks/{networkId}:
+  /networks:          
+  /providers/{providerId}:
+    put:
+      summary: Updates the information about one specific provider
+      parameters: 
+        - name: providerId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific provider
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                tlf:
+                  type: string
+      responses:
+        '204':
+          description: The provider has been modified
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Provider does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '409':
+            $ref: '#/components/responses/409ResourceExist'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Gets information about one specific provider
+      description: Gets information about one specific provider
+      parameters: 
+        - name: providerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns a provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Provider does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one provider from the system
+      description: When the provider is deleted, his assets do not have a provider associated
+      parameters: 
+        - name: providerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: The provider has been deleted
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Provider does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /providers/{providerId}/assets:
+    get:
+      summary: Returns an array of assets that are provided by the specified provider
+      description: Returns an array of assets that are provided by the specified provider
+      parameters: 
+        - name: providerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an array of assets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Provider does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /providers:
+    get:
+      summary: Returns an array of providers that fulfills the requirements
+      description: Returns a list of providers
+      parameters:
+        - name: name
+          in: query
+          schema:
+              type: string
+        - name: tlf
+          in: query
+          schema:
+              type: string
+        - name: email
+          in: query
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of providers
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+      summary: Adds a new provider
+      description : Adds a new provider
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                  type: object
+                  required:
+                    - email
+                    - name
+                    - tlf
+                  properties:
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      tlf:
+                        type: string
+      responses:
+      '201':
+        description: Succesfully created a new provider
+        headers:
+          Location:
+            schema:
+              type: integer
+            description: URL to the created provider
+      '400':
+        $ref: '#/components/responses/400Invalid'
+      '401':
+        $ref: '#/components/responses/401Unauthorized'
+      '409':
+        $ref: '#/components/responses/409ResourceExist'
+      '500':
+        $ref: '#/components/responses/500Unknown'
+  /profiles/{profileId}:
+    get:
+      summary: Gets information about one specific profile
+      description: Gets information about one specific profile
+      parameters: 
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns a profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Profile does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one profile from the system
+      description: Deletes one profile from the system
+      parameters: 
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The profile has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Profile does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    put:
+      summary: Updates the information about one specific profile
+      parameters: 
+        - name: profileId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific url
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                addAreas:
+                  type: integer
+                addAssets:
+                  type: integer
+                addAudits:
+                  type: integer
+                addCompanies:
+                  type: integer
+                addGroups:
+                  type: integer
+                addNetworks:
+                  type: integer
+                addProfiles:
+                  type: integer
+                addProviders:
+                  type: integer
+                addResponsables:
+                  type: integer
+                addUrls:
+                  type: integer
+                addUsers:
+                  type: integer
+                addVulnerabilities:
+                  type: integer
+                admin:
+                  type: integer
+                assumeVulnerabilities:
+                  type: integer
+                closeVulnerabilities:
+                  type: integer
+                deleteAreas:
+                  type: integer
+                deleteAssets:
+                  type: integer
+                deleteAudits:
+                  type: integer
+                deleteCompanies:
+                  type: integer
+                deleteGroups:
+                  type: integer
+                deleteNetworks:
+                  type: integer
+                deleteProfiles:
+                  type: integer
+                deleteProviders:
+                  type: integer
+                deleteResponsables:
+                  type: integer
+                deleteUrls:
+                  type: integer
+                deleteUsers:
+                  type: integer
+                deleteVulnerabilities:
+                  type: integer
+                falsepositiveVulnerabilities:
+                  type: integer
+                getAreas:
+                  type: integer
+                getAssets:
+                  type: integer
+                getAudits:
+                  type: integer
+                getCompanies:
+                  type: integer
+                getGroups:
+                  type: integer
+                getNetworks:
+                  type: integer
+                getProfiles:
+                  type: integer
+                getProviders:
+                  type: integer
+                getResponsables:
+                  type: integer
+                getUrls:
+                  type: integer
+                getUsers:
+                  type: integer
+                getVulnerabilities:
+                  type: integer
+                modifyAreas:
+                  type: integer
+                modifyAssets:
+                  type: integer
+                modifyAudits:
+                  type: integer
+                modifyCompanies:
+                  type: integer
+                modifyGroups:
+                  type: integer
+                modifyNetworks:
+                  type: integer
+                modifyProfiles:
+                  type: integer
+                modifyProviders:
+                  type: integer
+                modifyResponsables:
+                  type: integer
+                modifyUrls:
+                  type: integer
+                modifyUsers:
+                  type: integer
+                modifyVulnerabilities:
+                  type: integer
+                name: 
+                  type: string
+                openVulnerabilities:
+                  type: integer
+                reviewVulnerabilities:
+                  type: integer
+                viewAll:
+                  type: integer
+                
+      responses:
+        '204':
+          description: The url has been modified
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Url does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /profiles:
+    get:
+      summary: Returns an array of profiles that fulfills the requirements
+      description: Returns a list of profiles
+      parameters:
+        - name: addAreas
+          in: query
+          schema:
+            type: integer
+        - name: addAssets
+          in: query
+          schema:
+            type: integer
+        - name: addAudits
+          in: query
+          schema:
+            type: integer
+        - name: addCompanies
+          in: query
+          schema:
+            type: integer
+        - name: addGroups
+          in: query
+          schema:
+            type: integer
+        - name: addNetworks
+          in: query
+          schema:
+            type: integer
+        - name: addProfiles
+          in: query
+          schema:
+            type: integer
+        - name: addProviders
+          in: query
+          schema:
+            type: integer
+        - name: addResponsables
+          in: query
+          schema:
+            type: integer
+        - name: addUrls
+          in: query
+          schema:
+            type: integer
+        - name: addUsers
+          in: query
+          schema:
+            type: integer
+        - name: addVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: admin
+          in: query
+          schema:
+            type: integer
+        - name: assumeVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: closeVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: deleteAreas
+          in: query
+          schema:
+            type: integer
+        - name: deleteAssets
+          in: query
+          schema:
+            type: integer
+        - name: deleteAudits
+          in: query
+          schema:
+            type: integer
+        - name: deleteCompanies
+          in: query
+          schema:
+            type: integer
+        - name: deleteGroups
+          in: query
+          schema:
+            type: integer
+        - name: deleteNetworks
+          in: query
+          schema:
+            type: integer
+        - name: deleteProfiles
+          in: query
+          schema:
+            type: integer
+        - name: deleteProviders
+          in: query
+          schema:
+            type: integer
+        - name: deleteResponsables
+          in: query
+          schema:
+            type: integer
+        - name: deleteUrls
+          in: query
+          schema:
+            type: integer
+        - name: deleteUsers
+          in: query
+          schema:
+            type: integer
+        - name: deleteVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: falsepositiveVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: getAreas
+          in: query
+          schema:
+            type: integer
+        - name: getAssets
+          in: query
+          schema:
+            type: integer
+        - name: getAudits
+          in: query
+          schema:
+            type: integer
+        - name: getCompanies
+          in: query
+          schema:
+            type: integer
+        - name: getGroups
+          in: query
+          schema:
+            type: integer
+        - name: getNetworks
+          in: query
+          schema:
+            type: integer
+        - name: getProfiles
+          in: query
+          schema:
+            type: integer
+        - name: getProviders
+          in: query
+          schema:
+            type: integer
+        - name: getResponsables
+          in: query
+          schema:
+            type: integer
+        - name: getUrls
+          in: query
+          schema:
+            type: integer
+        - name: getUsers
+          in: query
+          schema:
+            type: integer
+        - name: getVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: modifyAreas
+          in: query
+          schema:
+            type: integer
+        - name: modifyAssets
+          in: query
+          schema:
+            type: integer
+        - name: modifyAudits
+          in: query
+          schema:
+            type: integer
+        - name: modifyCompanies
+          in: query
+          schema:
+            type: integer
+        - name: modifyGroups
+          in: query
+          schema:
+            type: integer
+        - name: modifyNetworks
+          in: query
+          schema:
+            type: integer
+        - name: modifyProfiles
+          in: query
+          schema:
+            type: integer
+        - name: modifyProviders
+          in: query
+          schema:
+            type: integer
+        - name: modifyResponsables
+          in: query
+          schema:
+            type: integer
+        - name: modifyUrls
+          in: query
+          schema:
+            type: integer
+        - name: modifyUsers
+          in: query
+          schema:
+            type: integer
+        - name: modifyVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: name
+          in: query
+          schema:
+            type: integer
+        - name: openVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: reviewVulnerabilities
+          in: query
+          schema:
+            type: integer
+        - name: viewAll
+          in: query
+          schema:
+            type: integer      
+      responses:
+        '200':
+          description: Succesfully returns a list of profiles
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+        summary: Adds a new profile
+        description : Adds a new profile
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                    type: object
+                    required:
+                      - name
+                    properties:
+                      addAreas:
+                        type: integer
+                      addAssets:
+                        type: integer
+                      addAudits:
+                        type: integer
+                      addCompanies:
+                        type: integer
+                      addGroups:
+                        type: integer
+                      addNetworks:
+                        type: integer
+                      addProfiles:
+                        type: integer
+                      addProviders:
+                        type: integer
+                      addResponsables:
+                        type: integer
+                      addUrls:
+                        type: integer
+                      addUsers:
+                        type: integer
+                      addVulnerabilities:
+                        type: integer
+                      admin:
+                        type: integer
+                      assumeVulnerabilities:
+                        type: integer
+                      closeVulnerabilities:
+                        type: integer
+                      deleteAreas:
+                        type: integer
+                      deleteAssets:
+                        type: integer
+                      deleteAudits:
+                        type: integer
+                      deleteCompanies:
+                        type: integer
+                      deleteGroups:
+                        type: integer
+                      deleteNetworks:
+                        type: integer
+                      deleteProfiles:
+                        type: integer
+                      deleteProviders:
+                        type: integer
+                      deleteResponsables:
+                        type: integer
+                      deleteUrls:
+                        type: integer
+                      deleteUsers:
+                        type: integer
+                      deleteVulnerabilities:
+                        type: integer
+                      falsepositiveVulnerabilities:
+                        type: integer
+                      getAreas:
+                        type: integer
+                      getAssets:
+                        type: integer
+                      getAudits:
+                        type: integer
+                      getCompanies:
+                        type: integer
+                      getGroups:
+                        type: integer
+                      getNetworks:
+                        type: integer
+                      getProfiles:
+                        type: integer
+                      getProviders:
+                        type: integer
+                      getResponsables:
+                        type: integer
+                      getUrls:
+                        type: integer
+                      getUsers:
+                        type: integer
+                      getVulnerabilities:
+                        type: integer
+                      modifyAreas:
+                        type: integer
+                      modifyAssets:
+                        type: integer
+                      modifyAudits:
+                        type: integer
+                      modifyCompanies:
+                        type: integer
+                      modifyGroups:
+                        type: integer
+                      modifyNetworks:
+                        type: integer
+                      modifyProfiles:
+                        type: integer
+                      modifyProviders:
+                        type: integer
+                      modifyResponsables:
+                        type: integer
+                      modifyUrls:
+                        type: integer
+                      modifyUsers:
+                        type: integer
+                      modifyVulnerabilities:
+                        type: integer
+                      name: 
+                        type: string
+                      openVulnerabilities:
+                        type: integer
+                      reviewVulnerabilities:
+                        type: integer
+                      viewAll:
+                        type: integer
+        responses:
+        '201':
+          description: Succesfully created a new profile
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created profile
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /responsables/{responsableId}/assets:              
+  /responsables/{responsableId}:
+    put:
+      summary: Updates the information about one specific responsable
+      parameters: 
+        - name: responsableId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific responsable
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                tlf:
+                  type: string
+      responses:
+        '204':
+          description: The responsable has been modified
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Responsable does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Gets information about one specific responsable
+      description: Gets information about one specific responsable
+      parameters: 
+        - name: responsableId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns a responsable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Responsable'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Responsable does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one responsable from the system
+      description: When the responsable is deleted, his assets do not have a responsable associated
+      parameters: 
+        - name: responsableId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: The responsable has been deleted
+        '400':
+          $ref: '#/components/responses/400Invalid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Responsable does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /responsables:
+    get:
+      summary: Returns an array of responsables that fulfills the requirements
+      description: Returns a list of responsables
+      parameters:
+        - name: name
+          in: query
+          schema:
+              type: string
+        - name: tlf
+          in: query
+          schema:
+              type: string
+        - name: email
+          in: query
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of responsables
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Responsable'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+      summary: Adds a new responsable
+      description : Adds a new responsable
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                  type: object
+                  required:
+                    - email
+                    - name
+                    - tlf
+                  properties:
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      tlf:
+                        type: string
+      responses:
+      '201':
+        description: Succesfully created a new responsable
+        headers:
+          Location:
+            schema:
+              type: integer
+            description: URL to the created responsable
+      '400':
+        $ref: '#/components/responses/400Invalid'
+      '401':
+        $ref: '#/components/responses/401Unauthorized'
+      '409':
+        $ref: '#/components/responses/409ResourceExist'
+      '500':
+        $ref: '#/components/responses/500Unknown'
+  /vulnerabilities/{vulnerabilityId}/evidences:
+  /vulnerabilities/{vulnerabilityId}:
+    put:
+      summary: Updates the information about one specific vulnerability
+      parameters:
+        - name: vulnerabilityId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific vulnerability
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                executedTest:
+                  type: string
+                name:
+                  type: string
+                solution:
+                  type: string
+                status:
+                  type: integer
+      responses:
+        '204':
+          description: The vulnerability has been modified
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Vulnerability does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'         
+    get:
+      summary: Gets information about one specific vulnerability
+      description: Gets information about one specific vulnerability
+      parameters: 
+        - name: vulnerabilityId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns a vulnerability
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vulnerability'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Vulnerability does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one vulnerability from the system
+      description: When the vulnerability is deleted, the audit's risk and its vulnerability count are updated
+      parameters: 
+        - name: vulnerabilityId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The vulnerability has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vulnerability'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Vulnerability does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /vulnerabilities:
+    post:
+      summary: Adds a new vulnerability
+      description: When a vulnerability is added, the audit's risk and its vulnerability count are updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                  type: object
+                  required :
+                    - name
+                    - risk
+                    - description
+                    - solution
+                    - audit
+                    - executedTest
+                  properties:
+                    audit:
+                      type: integer
+                    description:
+                      type: string
+                    executedTest:
+                      type: string
+                    name:
+                      type: string
+                    risk:
+                      type: integer
+                    solution:
+                      type: string
+      responses:
+        '201':
+          description: Succesfully created a new vulnerability
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created vulnerability
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Returns an array of vulnerabilities that fulfills the requirements
+      description: Returns a list of vulnerabilities
+      parameters:
+        - name: asset #tentative
+          in: query
+          schema:
+            type: integer
+        - name: audit #tentative
+          in: query
+          schema:
+            type: integer
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: risk
+          in: query
+          schema:
+            type:   integer
+            enum: [0,1,2,3,4]
+          examples:
+            zero:
+              value: 0
+              summary : Informative 
+            one:
+              value: 1
+              summary : Low
+            two:
+              value: 2
+              summary : Medium
+            three:
+              value: 3
+              summary : High
+            four:
+              value: 4
+              summary : Critical
+        - name: status
+          in: query
+          schema:
+            type:   integer
+            enum: [0,1,2,3,4]
+          examples:
+            zero:
+              value: 0
+              summary : Open 
+            one:
+              value: 1
+              summary : False positive
+            two:
+              value: 2
+              summary : Revision
+            three:
+              value: 3
+              summary : Assumed
+            four:
+              value: 4
+              summary : Fixed
+        - name: url #tentative
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of vulnerabilities
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vulnerability'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /tags/:
+  /tags/{tagId}/assets:
+  /urls/{urlId}:
+    put:
+      summary: Updates the information about one specific url
+      parameters: 
+        - name: urlId
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        description: Updates the information about one specific url
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enviroment:
+                  type: string
+                url:
+                  type: string
+                port:
+                  type: integer
+      responses:
+        '204':
+          description: The url has been modified
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Url does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    get:
+      summary: Gets information about one specific url
+      description: Gets information about one specific url
+      parameters: 
+        - name: urlId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesfully returns an url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Url does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    delete:
+      summary: Deletes one url from the system
+      description: When the url is deleted, the audit that have been done to it and the discovered vulnerabilities are deleted
+      parameters: 
+        - name: urlId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The url has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '404':
+          description: Url does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          $ref: '#/components/responses/500Unknown'
+  /urls:
+    get:
+      summary: Returns an array of urls that fulfills the requirements
+      description: Returns a list of vulnerabilities
+      parameters:
+        - name: asset #tentative
+          in: query
+          schema:
+              type: integer
+        - name: enviroment
+          in: query
+          schema:
+              type: string
+        - name: port
+          in: query
+          schema:
+              type: integer
+        - name: url
+          in: query
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Succesfully returns a list of urls
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Url'
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+    post:
+        summary: Adds a new url
+        description : Adds a new url
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                    type: object
+                    required:
+                      - asset
+                      - enviroment
+                      - port
+                      - url
+                    properties:
+                        asset:
+                          type: integer
+                        enviroment:
+                          type: string
+                        port:
+                          type: integer
+                        url:
+                          type: string
+        responses:
+        '201':
+          description: Succesfully created a new url
+          headers:
+            Location:
+              schema:
+                type: integer
+              description: URL to the created asset
+        '400':
+          $ref: '#/components/responses/400NotValid'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500Unknown'
+components:
+  responses:
+    401Unauthorized:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    400NotValid:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    500Unknown:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  schemas:
+    Area:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+        assets:
+            type: array
+            items:
+                $ref : '#/components/schemas/Asset'
+    Asset:
+        type: object
+        properties:
+          alias:
+            type: string
+          area:
+            $ref : '#/components/schemas/Area'
+          audits:
+            type: array
+            items: 
+             $ref: '#/components/schemas/Audit'
+          authentication:
+            type: integer
+          authorization:
+            type: integer
+          availability:
+            type: integer
+          class:
+            type: integer
+          confidenciality:
+            type: integer
+          department:
+            $ref : '#/components/schemas/Department'
+          description:
+            type: string
+          groups:
+            type: array
+            items: 
+             $ref: '#/components/schemas/Group'
+          hgf:
+            type: string
+          id:
+            type: integer
+          integrity:
+            type: integer
+          integrations:
+            type : array
+            items : '#/components/schemas/Integration'
+          location:
+            type: integer 
+          name:
+            type: string
+          responsables:
+            type: array
+            items: 
+             $ref: '#/components/schemas/Responsable'
+          risk:
+            type: number
+          status:
+            type: integer
+          statusDate:
+            type: string
+          tags:
+            type: array
+            items: 
+             $ref: '#/components/schemas/Tag'
+          trazability:
+            type: integer
+          urls:
+            type: array
+            items: 
+             $ref: '#/components/schemas/Url'
+          visibility:
+            type: integer
+          volumetry:
+            type: integer 
+    Audit:
+      type: object
+      properties:
+        asset:
+          $ref : '#/components/schemas/Asset'
+        class:
+          type: string
+        delivered:
+          type: integer
+        id:
+          type: integer
+        launched:
+          type: string
+        methodology:
+          type: integer
+        name:
+          type: string
+        notes:
+          type: string
+        risk:
+          type: number
+        scheduled:
+          type: string
+        status:
+          type: integer
+        tool:
+          type: string
+        url:
+          $ref : '#/components/schemas/Url'
+        vtc:
+          type: integer
+        vth:
+          type: integer
+        vtm:
+          type: integer
+        vtl:
+          type: integer
+        vti:
+          type: integer
+        vfc:
+          type: integer
+        vfh:
+          type: integer
+        vfm:
+          type: integer
+        vfl:
+          type: integer
+        vfi:
+          type: integer
+        vac:
+          type: integer
+        vah:
+          type: integer
+        vam:
+          type: integer
+        val:
+          type: integer
+        vai:
+          type: integer
+        vulnerabilities:
+          type: array
+          items:
+            $ref : '#/components/schemas/Vulnerability' 
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+        areas :
+          type : array
+          items :
+            $ref : '#/components/schemas/Area'
+        description:
+          type: string
+        groups :
+          type : array
+          items :
+            $ref : '#/components/schemas/Group'
+        name:
+          type: string
+    Department:
+      type : object
+      properties:
+        id: 
+          type : integer
+        assets :
+          type : array
+          items :
+            $ref : '#/components/schemas/Asset'
+        name:
+          type : string     
+    Functionality:
+        type: object
+        properties:
+          name:
+            type: string    
+    Group:
+        type: object
+        properties:
+            id:
+              type: integer
+            assets :
+              type : array
+              items :
+                $ref : '#/components/schemas/Asset'
+            company:
+                $ref : '#/components/schemas/Company'
+            description:
+              type: string
+            name:
+              type: string
+            users :
+              type : array
+              items :
+                $ref : '#/components/schemas/User'
+    Integration:
+      type: object
+      properties:
+        id:
+          type: integer
+        asset:
+          $ref : '#/components/schemas/Asset'
+        class:
+          type: integer
+        comment:
+          type: string
+        ndone:
+          type: integer
+        ntotal:
+          type: integer
+        papDate:
+          type: string
+        status:
+          type: integer
+        startDate:
+          type: string    
+    Profile:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          users :
+            type : array
+            items :
+              $ref : '#/components/schemas/User'
+          functionalities :
+            type : array
+            items :
+              $ref : '#/components/schemas/Functionality'
+    Responsable:
+      type: object
+      properties:
+        id:
+          type: integer
+        assets :
+            type : array
+            items :
+              $ref : '#/components/schemas/Asset'
+        email:
+          type: string
+        name:
+          type: string
+        tlf:
+          type: string
+    Tag:
+      type: object
+      properties:
+        assets :
+          type : array
+          items :
+            $ref : '#/components/schemas/Asset'
+        company:
+          $ref : '#/components/schemas/Company'
+        name:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        groups :
+          type : array
+          items :
+            $ref : '#/components/schemas/Group'
+        password:
+          type: string
+        profile:
+          $ref : '#/components/schemas/Profile'
+        name:
+          type: string
+    Url:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/Asset'
+        audits :
+          type : array
+          items :
+            $ref : '#/components/schemas/Audit'
+        class:
+          type: smallint
+        enviroment:
+          type: string
+        id:
+          type: integer
+        port:
+          type: integer
+        url:
+          type: string
+    Vulnerability:
+      type: object
+      properties:
+        audit:
+          type: integer
+        business_impact_compliance:
+          type: integer
+        business_impact_financial:
+          type: integer
+        business_impact_privacy:
+          type: integer
+        business_impact_reputation:
+          type: integer
+        communication_date:
+          type: string
+        description:
+          type: string
+        discovery_date:
+          type: string
+        executedTest:
+          type: string  
+        id:
+          type: integer
+        name:
+          type: string
+        resolution_date:
+          type: string
+        risk:
+          type: integer
+        solution:
+          type: string
+        technical_impact_accountability:
+          type: integer
+        technical_impact_availability:
+          type: integer
+        technical_impact_confidenciality:
+          type: integer
+        technical_impact_integrity:
+          type: integer
+        threat_agent_motive:
+          type: integer
+        threat_agent_opportunity:
+          type: integer
+        threat_agent_size:
+          type: integer
+        threat_agent_skill:
+          type: integer
+        vulnerability_awareness:
+          type: integer
+        vulnerability_ease_of_discovery:
+          type: integer
+        vulnerability_ease_of_explotation:
+          type: integer
+        vulnerability_intrusion_detection:
+          type: integer
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/JunquerGJ/IndexOf/1
+  - description: IndexOf API
+    url: https://virtserver.swaggerhub.com/JunquerGJ/IndexOf/v1

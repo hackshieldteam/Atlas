@@ -1,0 +1,53 @@
+{
+  "name": "atlas",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node ./src/server.ts",
+    "test": "mocha "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "*",
+    "bcrypt": "*",
+    "class-transformer": "*",
+    "class-validator": "*",
+    "config": "*",
+    "cookie-parser": "*",
+    "cors": "*",
+    "envalid": "*",
+    "express": "*",
+    "express-fileupload": "*",
+    "file-type": "*",
+    "jsonwebtoken": "*",
+    "knex": "*",
+    "moment": "*",
+    "multer": "*",
+    "pg": "*",
+    "reflect-metadata": "*",
+    "sqlite3": "*",
+    "ts-node": "*",
+    "typeorm": "*",
+    "typescript": "*"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/expect": "^1.20.4",
+    "@types/jsonwebtoken": "^8.3.3",
+    "@types/mocha": "^5.2.7",
+    "@types/supertest": "^2.0.8",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "expect": "^24.9.0",
+    "mocha": "^6.2.0",
+    "mocha-typescript": "^1.1.17",
+    "supertest": "^4.0.2",
+    "ts-mocha": "^6.0.0",
+    "tslint": "^5.18.0"
+  }
+}
