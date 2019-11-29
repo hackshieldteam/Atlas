@@ -19,6 +19,7 @@ import TagController from './routes/tags/tag.controller';
 import UrlController from './routes/urls/url.controller';
 import VulnerabilityController from './routes/vulnerabilities/vulnerability.controller';
 import EvidenceController from './routes/evidences/evidence.controller';
+import MethodologyController from './routes/methodologies/methodology.controller';
 
 validateEnv();
 
@@ -49,7 +50,8 @@ validateEnv();
                 new TagController(),
                 new UrlController(),
                 new VulnerabilityController(),
-                new EvidenceController()
+                new EvidenceController(),
+                new MethodologyController()
     ]
   );
 
