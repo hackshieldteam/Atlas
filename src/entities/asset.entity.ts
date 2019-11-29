@@ -67,6 +67,10 @@ class Asset{
     @IsInt()
     @Column("smallint")
     status! : number;
+
+    @IsString()
+    @Column("varchar", {length : 250, unique : true})
+    jiraProjectUrl : string
     
     @IsString()
     @Column("date",{ nullable : true})
