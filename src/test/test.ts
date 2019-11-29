@@ -30,6 +30,7 @@ import MethodologyController from '../routes/methodologies/methodology.controlle
 import Test from 'entities/test.entity';
 import KnowledgeBaseController from '../routes/knowledgeBase/knowledgeBase.controller';
 import JiraController from '../routes/jira/jira.controller';
+import TestController from '../routes/tests/test.controller';
 
 
 validateEnv();
@@ -360,7 +361,8 @@ describe('Atlas endpoints', () => {
                 new EvidenceController(),
                 new MethodologyController(),
                 new KnowledgeBaseController(),
-                new JiraController()
+                new JiraController(),
+                new TestController
             ]);
 
             await app.listen();

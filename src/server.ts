@@ -22,6 +22,7 @@ import EvidenceController from './routes/evidences/evidence.controller';
 import MethodologyController from './routes/methodologies/methodology.controller';
 import JiraController from './routes/jira/jira.controller';
 import KnowledgeBaseController from './routes/knowledgeBase/knowledgeBase.controller';
+import TestController from './routes/tests/test.controller';
 
 validateEnv();
 
@@ -55,7 +56,8 @@ validateEnv();
       new EvidenceController(),
       new MethodologyController(),
       new KnowledgeBaseController(),
-      new JiraController()
+      new JiraController(),
+      new TestController()
 
     ]
   );
