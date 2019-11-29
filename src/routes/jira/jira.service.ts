@@ -21,7 +21,7 @@ class JiraService {
                 jiraData.consumerKey,
                 jiraData.consumerPrivateKey,
                 "1.0",
-                "http://localhost:8090/sessions/callback",
+                jiraData.homePath + "",
                 "RSA-SHA1",
             );
             //Get Access Token  

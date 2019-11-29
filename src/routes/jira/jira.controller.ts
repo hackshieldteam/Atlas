@@ -2,7 +2,7 @@ import * as express from 'express';
 import Controller from 'routes/interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
-import { OauthTokenJiraDto,AccessTokenJiraDto, UpdateJiraDto, FindJiraDto } from './jira.dto';
+import { RequestTokenJiraDto,CallbackJira,AccessTokenJiraDto, UpdateJiraDto, FindJiraDto } from './jira.dto';
 import JiraService from './jira.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
@@ -23,7 +23,8 @@ class JiraController implements Controller {
     }
 
     private initializeRoutes() {
-        this.router.post(this.path + "/integrationwithoutaccesstoken", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(OauthTokenJiraDto), this.OauthTokenJira);
+        this.router.post(this.path + "/integrationwithoutaccesstoken/getRequestToken", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(RequestTokenJiraDto), this.RequestTokenJira);
+        this.router.post(this.path + "/integrationwithoutaccesstoken/callback", this.CallbackJira);
         this.router.post(this.path + "/integrationwithtaccesstoken", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(AccessTokenJiraDto), this.AccessTokenJira);
         this.router.all(this.path + "/*", authMiddleware);
     }
@@ -48,16 +49,16 @@ class JiraController implements Controller {
     //         next(new HttpException(400, error.message));
     //     }
     // }
-    private OauthTokenJira = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    private RequestTokenJira = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         try {
             const secret = process.env.JWT_SECRET;
 
             const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
-            var jiraData: OauthTokenJiraDto = request.body;
+            var jiraData: RequestTokenJiraDto = request.body;
             if (companies.indexOf(jiraData.company.id) == -1) {
                 next(new HttpException(400, "User does not belong to that company"))
             } else {
-                const newJira = await this.jiraService.OauthTokenJira(jiraData);
+                const newJira = await this.jiraService.RequestTokenJira(jiraData);
                 response.status(201).send(newJira);
             }
         } catch (error) {
