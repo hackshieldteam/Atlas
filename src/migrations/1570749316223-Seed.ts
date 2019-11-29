@@ -64,6 +64,10 @@ export class Seed1570749316223 implements MigrationInterface {
         await queryRunner.query('INSERT INTO t_functionality(name) VALUES (\'ADD CREDENTIALS\')');
         await queryRunner.query('INSERT INTO t_functionality(name) VALUES (\'MODIFY CREDENTIALS\')');
         await queryRunner.query('INSERT INTO t_functionality(name) VALUES (\'DELETE CREDENTIALS\')');
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('GET METHODOLOGIES')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('ADD METHODOLOGIES')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('MODIFY METHODOLOGIES')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('DELETE METHODOLOGIES')");
         await queryRunner.query('INSERT INTO t_profile(id,name) VALUES (1,\'Admin\')');
         await queryRunner.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET CREDENTIALS\')');
         await queryRunner.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD CREDENTIALS\')');
