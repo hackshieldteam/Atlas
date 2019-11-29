@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import Vulnerability from '../vulnerabilities/vulnerability.entity';
 import Company from '../companies/company.entity';
 
-class CreateJiraDto {
+class OauthTokenJiraDto {
   
     @IsDefined()
     @IsString()
@@ -20,6 +20,31 @@ class CreateJiraDto {
     @IsOptional()
     @IsString()
     public consumerPrivateKey: string;
+
+    @IsDefined()
+    @IsString()
+    public description: string;
+
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => Company)
+    public company : Company;
+  
+  }
+
+  class AccessTokenJiraDto {
+  
+    @IsDefined()
+    @IsString()
+    public name: string;
+
+    @IsOptional()
+    @IsString()
+    public homePath: string;
+
+    @IsOptional()
+    @IsString()
+    public consumerKey: string;
 
     @IsOptional()
     @IsString()
@@ -110,6 +135,7 @@ class CreateJiraDto {
 
 export {
     UpdateJiraDto,
-    CreateJiraDto,
+    OauthTokenJiraDto,
+    AccessTokenJiraDto,
     FindJiraDto
   }

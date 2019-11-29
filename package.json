@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/express": "*",
+    "@types/oauth": "^0.9.1",
     "bcrypt": "*",
     "class-transformer": "*",
     "class-validator": "*",
