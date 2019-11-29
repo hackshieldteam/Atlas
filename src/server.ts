@@ -21,7 +21,7 @@ import VulnerabilityController from './routes/vulnerabilities/vulnerability.cont
 import EvidenceController from './routes/evidences/evidence.controller';
 import MethodologyController from './routes/methodologies/methodology.controller';
 import JiraController from './routes/jira/jira.controller';
-import KnowledgeBaseController from 'routes/knowledgeBase/knowledgeBase.controller';
+import KnowledgeBaseController from './routes/knowledgeBase/knowledgeBase.controller';
 
 validateEnv();
 
