@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToMany} from "typeorm";
-import  Profile  from "../profiles/profile.entity";
+import  Profile  from "./profile.entity";
 import { IsString, IsOptional } from "class-validator";
 
 @Entity()

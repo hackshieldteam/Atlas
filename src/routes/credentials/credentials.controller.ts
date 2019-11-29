@@ -4,13 +4,13 @@ import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Department from '../departments/department.entity';
-import Asset from '../assets/asset.entity';
+import Department from '../../entities/department.entity';
+import Asset from '../../entities/asset.entity';
 import * as jwt from 'jsonwebtoken';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
 import { CreateCredentialDto, FindCredentialDto, UpdateCredentialDto } from './credentials.dto';
-import Credential from './credentials.entity';
+import Credential from '../../entities/credentials.entity';
 import CredentialService from './credentials.service';
 
 

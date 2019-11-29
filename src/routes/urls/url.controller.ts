@@ -5,9 +5,9 @@ import permissionMiddleware from '../middleware/permission.middleware';
 import { CreateUrlDto, UpdateUrlDto, FindUrlDto } from './url.dto';
 import UrlService from './url.service';
 import HttpException from '../exceptions/HTTPException';
-import Url from './url.entity';
-import Department from '../departments/department.entity';
-import Asset from '../assets/asset.entity';
+import Url from '../../entities/url.entity';
+import Department from '../../entities/department.entity';
+import Asset from '../../entities/asset.entity';
 
 
 

@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany} from "typeorm";
-import Vulnerability from "../vulnerabilities/vulnerability.entity"
-import Test_Instance from "../test_instance/test_instance.entity";
+import Vulnerability from "./vulnerability.entity"
+import Test_Instance from "./test_instance.entity";
 
 @Entity()
 class Evidence{

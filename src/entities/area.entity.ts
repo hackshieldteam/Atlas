@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany, Index} from "typeorm";
-import Asset from "../assets/asset.entity";
-import Company from "../companies/company.entity";
-import Department from "../departments/department.entity";
+import Asset from "./asset.entity";
+import Company from "./company.entity";
+import Department from "./department.entity";
 import { IsInt, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 

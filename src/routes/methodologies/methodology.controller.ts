@@ -10,7 +10,7 @@ import { modifyEntries, addCompanyFilter } from "../../utils/modifyEntries";
 import * as jwt from 'jsonwebtoken';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import MethodologyService from "./methodology.service";
-import Methodology from "./methodology.entity";
+import Methodology from "../../entities/methodology.entity";
 
 
 

@@ -2,7 +2,7 @@ import * as express from 'express';
 import Controller from 'routes/interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
-import Profile from './profile.entity';
+import Profile from '../../entities/profile.entity';
 import   ProfileService  from './profile.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';

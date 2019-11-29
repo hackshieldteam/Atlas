@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import Functionality from './functionality.entity';
+import Functionality from '../../entities/functionality.entity';
 
 
 

@@ -1,7 +1,7 @@
 import { IsDate, IsDefined, IsString, ValidateNested, IsOptional, IsArray } from "class-validator";
 import { Type } from "class-transformer";
-import Company from "../companies/company.entity";
-import Test from "../tests/test.entity";
+import Company from "../../entities/company.entity";
+import Test from "../../entities/test.entity";
 
 class CreateMethodologyDto{
     @IsDefined()

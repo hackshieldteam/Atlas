@@ -1,5 +1,5 @@
 import {getRepository} from 'typeorm';
-import Jira from './jira.entity';
+import Jira from '../../entities/jira.entity';
 import {RequestTokenJiraDto, AccessTokenJiraDto, UpdateJiraDto} from './jira.dto';
 import HttpException from '../exceptions/HTTPException';
 import {OAuth} from 'oauth';

@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 import { IsDefined, IsString, ValidateNested, IsArray } from "class-validator";
-import Methodology from "../methodologies/methodology.entity";
-import User from "../users/user.entity";
+import Methodology from "./methodology.entity";
+import User from "./user.entity";
 import { Type } from "class-transformer";
-import Company from "../companies/company.entity";
-import Test_Instance from "../test_instance/test_instance.entity";
+import Company from "./company.entity";
+import Test_Instance from "./test_instance.entity";
 
 
 

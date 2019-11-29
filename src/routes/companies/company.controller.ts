@@ -4,11 +4,11 @@ import validationMiddleware from '../middleware/validation.middleware';
 import authMiddleware from '../middleware/auth.middleware';
 import permissionMiddelware from '../middleware/permission.middleware'
 import { CreateCompanyDto, UpdateCompanyDto, FindCompanyDto } from './company.dto';
-import Company from './company.entity';
+import Company from '../../entities/company.entity';
 import CompanyService from './company.service';
 import HttpException from '../exceptions/HTTPException';
-import Area from '../areas/area.entity';
-import Group from '../groups/group.entity';
+import Area from '../../entities/area.entity';
+import Group from '../../entities/group.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 class CompanyController implements Controller {

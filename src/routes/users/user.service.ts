@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import User from './user.entity';
+import User from '../../entities/user.entity';
 import { CreateUserDto, UpdateUserDto, FindUserDto } from './user.dto';
 
 

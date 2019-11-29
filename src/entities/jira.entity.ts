@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany} from "typeorm";
-import Vulnerability from "../vulnerabilities/vulnerability.entity"
+import Vulnerability from "./vulnerability.entity"
 
 @Entity()
 class Jira{

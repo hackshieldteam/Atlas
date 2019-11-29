@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable, ManyToOne, Index} from "typeorm";
-import  Functionality  from "../functionalities/functionality.entity";
-import  User  from "../users/user.entity";
+import  Functionality  from "./functionality.entity";
+import  User  from "./user.entity";
 import { IsInt, IsOptional, ValidateNested, IsDefined, IsString, IsArray } from "class-validator";
-import Company from "../companies/company.entity";
+import Company from "./company.entity";
 import { Type } from "class-transformer";
 
 @Entity()

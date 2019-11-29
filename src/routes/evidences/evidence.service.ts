@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm';
-import Evidence from './evidence.entity';
+import Evidence from '../../entities/evidence.entity';
 import { CreateEvidenceDto, UpdateEvidenceDto } from './evidence.dto';
 import * as fileType from 'file-type';
 import * as multer from 'multer'
-import Vulnerability from '../vulnerabilities/vulnerability.entity';
+import Vulnerability from '../../entities/vulnerability.entity';
 import HttpException from '../exceptions/HTTPException';
 import * as fs from 'fs';
 

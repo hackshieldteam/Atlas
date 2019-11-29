@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import {CreateIntegrationDto,  UpdateIntegrationDto, FindIntegrationDto} from './integration.dto';
-import Integration from './integration.entity';
+import Integration from '../../entities/integration.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

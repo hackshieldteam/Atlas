@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany, Index} from "typeorm";
-import Asset from "../assets/asset.entity";
+import Asset from "./asset.entity";
 import ResponsableToAsset from "./responsabletoasset.entity";
 import { IsInt, IsEmail, IsOptional, IsString, IsPhoneNumber, ValidateNested, IsDefined, IsArray } from "class-validator";
-import Company from "../companies/company.entity";
+import Company from "./company.entity";
 import { Type } from "class-transformer";
 
 @Entity()

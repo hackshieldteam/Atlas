@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import { CreateAssetDto, UpdateAssetDto, FindAssetDto } from './asset.dto';
-import Asset from './asset.entity';
+import Asset from '../../entities/asset.entity';
 
 
 

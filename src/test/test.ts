@@ -11,7 +11,7 @@ import * as request from 'supertest';
 import validateEnv from '../utils/validateEnv'
 import { equal, fail } from 'assert';
 import * as bcrypt from 'bcrypt';
-import User from '../routes/users/user.entity';
+import User from '../entities/user.entity';
 import GroupController from '../routes/groups/group.controller';
 import AreaController from '../routes/areas/area.controller';
 import AssetController from '../routes/assets/asset.controller';
@@ -27,7 +27,7 @@ import EvidenceController from '../routes/evidences/evidence.controller';
 
 import * as fs from 'fs';
 import MethodologyController from '../routes/methodologies/methodology.controller';
-import Test from 'routes/tests/test.entity';
+import Test from 'entities/test.entity';
 
 
 validateEnv();

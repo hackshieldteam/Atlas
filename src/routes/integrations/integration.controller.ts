@@ -6,7 +6,7 @@ import { CreateIntegrationDto, UpdateIntegrationDto, FindIntegrationDto } from '
 import IntegrationService from './integration.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Integration from './integration.entity';
+import Integration from '../../entities/integration.entity';
 
 
 

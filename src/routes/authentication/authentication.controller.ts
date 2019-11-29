@@ -9,15 +9,15 @@ import validationMiddleware from '../middleware/validation.middleware';
 import { CreateUserDto } from '../users/user.dto';
 import LogInDto from './logIn.dto';
 import { request } from 'http';
-import User from 'routes/users/user.entity';
+import User from 'entities/user.entity';
 import TokenData from '../interfaces/tokendata.interface';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import ProfileService from '../profiles/profile.service';
-import Profile from '../profiles/profile.entity';
-import Functionality from '../functionalities/functionality.entity';
-import Company from '../companies/company.entity';
+import Profile from '../../entities/profile.entity';
+import Functionality from '../../entities/functionality.entity';
+import Company from '../../entities/company.entity';
 import CompanyService from '../companies/company.service';
-import Group from 'routes/groups/group.entity';
+import Group from 'entities/group.entity';
 
 
 class AuthenticationController implements Controller{

@@ -5,7 +5,8 @@
     "target": "es2017",
     "moduleResolution": "node",
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "module": "commonjs"
   },
   "include": [
     "src/**/*.ts"

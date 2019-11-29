@@ -1,6 +1,6 @@
 import { IsDefined, IsString, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import Company from "../companies/company.entity";
+import Company from "../../entities/company.entity";
 
 
 

@@ -1,13 +1,13 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, Index} from "typeorm";
-import Group from "../groups/group.entity";
-import Area from "../areas/area.entity";
-import Department from "../departments/department.entity";
-import ResponsableToAsset from "../responsables/responsabletoasset.entity";
-import Tag from "../tags/tag.entity";
-import Integration from "../integrations/integration.entity";
-import Url from "../urls/url.entity";
-import Audit from "../audits/audit.entity";
-import Company from "../companies/company.entity";
+import Group from "./group.entity";
+import Area from "./area.entity";
+import Department from "./department.entity";
+import ResponsableToAsset from "./responsabletoasset.entity";
+import Tag from "./tag.entity";
+import Integration from "./integration.entity";
+import Url from "./url.entity";
+import Audit from "./audit.entity";
+import Company from "./company.entity";
 import { IsOptional, ValidateNested, IsDefined, IsString, IsInt, IsIn, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 

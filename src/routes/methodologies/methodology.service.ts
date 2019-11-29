@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import Methodology from "./methodology.entity";
+import Methodology from "../../entities/methodology.entity";
 import { CreateMethodologyDto, FindMethodologyDto, UpdateMethodologyDto } from "./methodology.dto";
 
 class MethodologyService{

@@ -1,20 +1,20 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, Unique, ManyToMany, JoinTable} from "typeorm";
-import Group from "../groups/group.entity";
-import Area from "../areas/area.entity";
-import Asset from "../assets/asset.entity";
-import User from "../users/user.entity";
-import Url from "../urls/url.entity";
+import Group from "./group.entity";
+import Area from "./area.entity";
+import Asset from "./asset.entity";
+import User from "./user.entity";
+import Url from "./url.entity";
 import { IsInt, IsString, IsOptional, ValidateNested, IsDefined, IsArray } from "class-validator";
-import Audit from "../audits/audit.entity";
-import Department from "../departments/department.entity";
-import Profile from "../profiles/profile.entity";
-import Responsable from "../responsables/responsable.entity";
-import Tag from "../tags/tag.entity";
+import Audit from "./audit.entity";
+import Department from "./department.entity";
+import Profile from "./profile.entity";
+import Responsable from "./responsable.entity";
+import Tag from "./tag.entity";
 import { Type } from "class-transformer";
-import Test from "../tests/test.entity";
-import Methodology from "../methodologies/methodology.entity";
-import Test_Instance from "../test_instance/test_instance.entity";
-import Credential from "../credentials/credentials.entity";
+import Test from "./test.entity";
+import Methodology from "./methodology.entity";
+import Test_Instance from "./test_instance.entity";
+import Credential from "./credentials.entity";
 
 @Entity()
 class Company{

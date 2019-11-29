@@ -8,7 +8,7 @@ import authMiddleware from '../middleware/auth.middleware';
 import * as jwt from 'jsonwebtoken';
 import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
-import Evidence from './evidence.entity';
+import Evidence from '../../entities/evidence.entity';
 
 
 const crypto = require('crypto');

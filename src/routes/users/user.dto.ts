@@ -1,8 +1,8 @@
 import { IsString, IsNumber, IsOptional, ValidateNested, IsInt, IsArray, IsDefined } from 'class-validator';
-import Profile from '../profiles/profile.entity';
+import Profile from '../../entities/profile.entity';
 import { Type } from 'class-transformer';
-import Company from '../companies/company.entity';
-import Group from '../groups/group.entity';
+import Company from '../../entities/company.entity';
+import Group from '../../entities/group.entity';
  
 class CreateUserDto {
  

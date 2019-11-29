@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
-import Company from './company.entity';
+import Company from '../../entities/company.entity';
 import {CreateCompanyDto,  UpdateCompanyDto, FindCompanyDto} from './company.dto';
-import Area from '../areas/area.entity';
+import Area from '../../entities/area.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import {CreateResponsableDto,  UpdateResponsableDto, FindResponsableDto} from './responsable.dto';
-import Responsable from './responsable.entity';
-import ResponsableToAsset from './responsabletoasset.entity';
+import Responsable from '../../entities/responsable.entity';
+import ResponsableToAsset from '../../entities/responsabletoasset.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

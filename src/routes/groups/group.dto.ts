@@ -1,7 +1,7 @@
 import { IsString, IsNumber, IsOptional, IsArray, IsInt, ValidateNested, IsDefined } from 'class-validator';
-import Functionality from '../functionalities/functionality.entity';
-import User from '../users/user.entity';
-import Company from '../companies/company.entity';
+import Functionality from '../../entities/functionality.entity';
+import User from '../../entities/user.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 
 class CreateGroupDto {

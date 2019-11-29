@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import Profile from './profile.entity';
+import Profile from '../../entities/profile.entity';
 import { CreateProfileDto, UpdateProfileDto, FindProfileDto } from './profile.dto';
 import { modifyEntries } from '../../utils/modifyEntries';
 

@@ -1,6 +1,6 @@
 import { getRepository, Like } from 'typeorm';
 import {CreateAreaDto,  UpdateAreaDto, FindAreaDto} from './area.dto';
-import Area from './area.entity';
+import Area from '../../entities/area.entity';
 
 
 class AreaService {

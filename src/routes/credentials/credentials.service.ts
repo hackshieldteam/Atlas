@@ -1,5 +1,5 @@
 import { getRepository, Like } from 'typeorm';
-import Credential from './credentials.entity';
+import Credential from '../../entities/credentials.entity';
 import { CreateCredentialDto, FindCredentialDto, UpdateCredentialDto } from './credentials.dto';
 
 

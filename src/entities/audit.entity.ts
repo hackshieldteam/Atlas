@@ -1,9 +1,9 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany, Index} from "typeorm";
-import Asset from "../assets/asset.entity";
-import Url from "../urls/url.entity";
-import Vulnerability from "../vulnerabilities/vulnerability.entity";
+import Asset from "./asset.entity";
+import Url from "./url.entity";
+import Vulnerability from "./vulnerability.entity";
 import { IsInt, IsOptional, ValidateNested, IsDefined, IsString, IsNumber } from "class-validator";
-import Company from "../companies/company.entity";
+import Company from "./company.entity";
 import { isString } from "util";
 import { Type } from "class-transformer";
 

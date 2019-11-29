@@ -1,7 +1,7 @@
 import { IsString, IsOptional, IsInt, ValidateIf, IsNotEmpty, IsDateString, IsArray, ValidateNested, IsDefined } from 'class-validator';
-import Url from '../urls/url.entity';
-import Asset from '../assets/asset.entity';
-import Company from '../companies/company.entity';
+import Url from '../../entities/url.entity';
+import Asset from '../../entities/asset.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 import { CreateUrlDto } from '../urls/url.dto';
 

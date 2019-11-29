@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 
 import {CreateAuditDto,  UpdateAuditDto, FindAuditDto} from './audit.dto';
-import Audit from './audit.entity';
+import Audit from '../../entities/audit.entity';
 
 
 

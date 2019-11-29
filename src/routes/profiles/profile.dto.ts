@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsOptional, IsArray, ValidateNested, IsDefined, IsNotEmpty } from 'class-validator';
-import Functionality from '../functionalities/functionality.entity';
-import Company from '../companies/company.entity';
+import Functionality from '../../entities/functionality.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
  
 class CreateProfileDto {

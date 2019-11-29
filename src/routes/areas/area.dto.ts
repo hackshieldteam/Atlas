@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsInt, ValidateNested, IsDefined, IsArray } from 'class-validator';
-import Company from '../companies/company.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 
 class CreateAreaDto {

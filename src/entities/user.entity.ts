@@ -1,10 +1,10 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany, Index} from "typeorm";
-import  Profile  from '../profiles/profile.entity'
-import Group from "../groups/group.entity";
-import Company from "../companies/company.entity";
+import  Profile  from './profile.entity'
+import Group from "./group.entity";
+import Company from "./company.entity";
 import { IsInt, IsString, IsOptional, ValidateNested, IsDefined, IsArray } from "class-validator";
 import { Type } from "class-transformer";
-import Test_Instance from "../test_instance/test_instance.entity";
+import Test_Instance from "./test_instance.entity";
 
 @Entity()
 class User{

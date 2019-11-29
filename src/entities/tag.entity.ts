@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable, ManyToOne, Index} from "typeorm";
-import Asset from "../assets/asset.entity";
-import Company from "../companies/company.entity";
-import Group from "../groups/group.entity";
+import Asset from "./asset.entity";
+import Company from "./company.entity";
+import Group from "./group.entity";
 import { IsString, ValidateNested, IsOptional, IsDefined, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 

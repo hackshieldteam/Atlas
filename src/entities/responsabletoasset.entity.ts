@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany} from "typeorm";
-import Asset from "../assets/asset.entity";
+import Asset from "./asset.entity";
 import Responsable from "./responsable.entity"
 
 @Entity()

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import { CreateDepartmentDto, UpdateDepartmentDto, FindDepartmentDto } from './department.dto';
-import Area from '../areas/area.entity';
-import Department from './department.entity';
+import Area from '../../entities/area.entity';
+import Department from '../../entities/department.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

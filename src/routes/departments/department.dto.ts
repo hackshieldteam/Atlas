@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsInt, ValidateNested, IsDefined } from 'class-validator';
-import Area from '../areas/area.entity';
-import Company from '../companies/company.entity';
+import Area from '../../entities/area.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 
 class CreateDepartmentDto {

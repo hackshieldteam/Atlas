@@ -6,8 +6,8 @@ import { CreateTagDto, UpdateTagDto, FindTagDto } from './tag.dto';
 import TagService from './tag.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Tag from './tag.entity';
-import Asset from '../assets/asset.entity';
+import Tag from '../../entities/tag.entity';
+import Asset from '../../entities/asset.entity';
 
 
 

@@ -8,9 +8,9 @@ import DepartmentService from './department.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
 import * as bcrypt from 'bcrypt';
-import Area from '../areas/area.entity';
-import Department from './department.entity';
-import Asset from '../assets/asset.entity';
+import Area from '../../entities/area.entity';
+import Department from '../../entities/department.entity';
+import Asset from '../../entities/asset.entity';
 
 
 

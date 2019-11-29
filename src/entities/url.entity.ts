@@ -1,9 +1,9 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany} from "typeorm";
-import Asset from "../assets/asset.entity";
-import Audit from "../audits/audit.entity";
+import Asset from "./asset.entity";
+import Audit from "./audit.entity";
 import { IsInt, IsOptional, IsString, ValidateNested, IsDefined, IsArray } from "class-validator";
 import { Type } from "class-transformer";
-import Company from "../companies/company.entity";
+import Company from "./company.entity";
 
 @Entity()
 class Url{

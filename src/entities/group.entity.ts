@@ -1,8 +1,8 @@
 import {Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable, ManyToOne, Index} from "typeorm";
-import  User  from "../users/user.entity";
-import Company from "../companies/company.entity";
-import Asset from "../assets/asset.entity";
-import Tag from "../tags/tag.entity";
+import  User  from "./user.entity";
+import Company from "./company.entity";
+import Asset from "./asset.entity";
+import Tag from "./tag.entity";
 import { IsInt, IsOptional, ValidateNested, IsDefined, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 

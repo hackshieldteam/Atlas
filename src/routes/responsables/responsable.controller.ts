@@ -6,7 +6,7 @@ import { CreateResponsableDto, UpdateResponsableDto, FindResponsableDto } from '
 import ResponsableService from './responsable.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Responsable from './responsable.entity';
+import Responsable from '../../entities/responsable.entity';
 
 
 

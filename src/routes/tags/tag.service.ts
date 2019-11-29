@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import {CreateTagDto,  UpdateTagDto, FindTagDto} from './tag.dto';
-import Tag from './tag.entity';
+import Tag from '../../entities/tag.entity';
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

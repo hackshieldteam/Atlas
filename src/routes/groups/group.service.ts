@@ -1,5 +1,5 @@
 import { getRepository, Like, In } from 'typeorm';
-import Group from './group.entity';
+import Group from '../../entities/group.entity';
 import { CreateGroupDto, UpdateGroupDto, FindGroupDto } from './group.dto';
 import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
 

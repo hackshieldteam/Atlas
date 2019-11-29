@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import {CreateUrlDto,  UpdateUrlDto, FindUrlDto} from './url.dto';
-import Url from './url.entity'
+import Url from '../../entities/url.entity'
 import { modifyEntries } from '../../utils/modifyEntries';
 
 

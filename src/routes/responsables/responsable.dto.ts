@@ -1,5 +1,5 @@
 import { IsString, IsNumber, IsOptional, IsArray, IsEmail, IsPhoneNumber, ValidateNested, IsDefined } from 'class-validator';
-import Company from '../companies/company.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 
 class CreateResponsableDto {

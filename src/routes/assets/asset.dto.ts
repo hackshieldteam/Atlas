@@ -1,13 +1,13 @@
 import { IsString, IsOptional, IsInt, IsDateString, IsNumber, ValidateNested, IsArray, Validate, IsIn, IsDefined, IsNotEmpty } from 'class-validator';
 import { isString, isNumber, isObject } from 'util';
-import Integration from '../integrations/integration.entity';
-import Tag from '../tags/tag.entity';
-import Group from '../groups/group.entity';
-import Audit from '../audits/audit.entity';
-import Url from '../urls/url.entity';
-import Department from '../departments/department.entity';
-import Area from '../areas/area.entity';
-import Company from '../companies/company.entity';
+import Integration from '../../entities/integration.entity';
+import Tag from '../../entities/tag.entity';
+import Group from '../../entities/group.entity';
+import Audit from '../../entities/audit.entity';
+import Url from '../../entities/url.entity';
+import Department from '../../entities/department.entity';
+import Area from '../../entities/area.entity';
+import Company from '../../entities/company.entity';
 import { Type } from 'class-transformer';
 import { CreateUrlDto } from '../urls/url.dto';
 

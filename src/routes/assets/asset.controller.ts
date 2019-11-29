@@ -7,7 +7,7 @@ import { getRepository } from 'typeorm';
 import AssetService from './asset.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Asset from './asset.entity';
+import Asset from '../../entities/asset.entity';
 import * as jwt from 'jsonwebtoken';
 import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';

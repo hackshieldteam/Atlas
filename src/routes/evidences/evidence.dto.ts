@@ -1,7 +1,7 @@
 import { IsString, IsOptional, IsDefined, IsInt, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import Vulnerability from '../vulnerabilities/vulnerability.entity';
-import Company from '../companies/company.entity';
+import Vulnerability from '../../entities/vulnerability.entity';
+import Company from '../../entities/company.entity';
 
 class CreateEvidenceDto {
   

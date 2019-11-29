@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from "typeorm";
 import { IsDefined, ValidateNested, IsString } from "class-validator";
-import User from "../users/user.entity";
+import User from "./user.entity";
 import { Type } from "class-transformer";
-import Evidence from "../evidences/evidence.entity";
-import Company from "../companies/company.entity";
-import Test from "../tests/test.entity";
+import Evidence from "./evidence.entity";
+import Company from "./company.entity";
+import Test from "./test.entity";
 
 @Entity()
 class Test_Instance {

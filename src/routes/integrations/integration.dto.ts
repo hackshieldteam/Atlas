@@ -1,8 +1,8 @@
 import { IsString, IsOptional, IsInt, ValidateNested, IsDefined } from 'class-validator';
 import { isObject } from 'util';
-import Asset from '../assets/asset.entity';
+import Asset from '../../entities/asset.entity';
 import { Type } from 'class-transformer';
-import Company from '../companies/company.entity';
+import Company from '../../entities/company.entity';
 
 
 class CreateIntegrationDto {

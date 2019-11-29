@@ -6,7 +6,7 @@ import {RequestTokenJiraDto, AccessTokenJiraDto, UpdateJiraDto, FindJiraDto} fro
 import JiraService from './jira.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
-import Jira from './jira.entity';
+import Jira from '../../entities/jira.entity';
 import * as jwt from 'jsonwebtoken';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import {modifyEntries, addCompanyFilter} from '../../utils/modifyEntries';
