@@ -78,8 +78,8 @@ class App {
     public listen = async () => {
 
         let opts = {
-            key: fs.readFileSync(process.env.CRYPTOKEY || "./localhost.key"),
-            cert: fs.readFileSync(process.env.CRYPTOCERT || "localhost.cert")
+            key: fs.readFileSync(process.env.CRYPTOKEY),
+            cert: fs.readFileSync(process.env.CRYPTOCERT)
         };
         this.server = https.createServer(opts, this.app);
         
