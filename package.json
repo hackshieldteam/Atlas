@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/express": "*",
+    "@types/oauth": "^0.9.1",
     "bcrypt": "*",
     "class-transformer": "*",
     "class-validator": "*",
@@ -28,8 +29,10 @@
     "knex": "*",
     "moment": "*",
     "multer": "*",
+    "oauth": "^0.9.15",
     "pg": "*",
     "reflect-metadata": "*",
+    "request": "^2.88.0",
     "sqlite3": "*",
     "ts-node": "*",
     "typeorm": "*",

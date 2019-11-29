@@ -20,6 +20,7 @@ import UrlController from './routes/urls/url.controller';
 import VulnerabilityController from './routes/vulnerabilities/vulnerability.controller';
 import EvidenceController from './routes/evidences/evidence.controller';
 import MethodologyController from './routes/methodologies/methodology.controller';
+import JiraController from './routes/jira/jira.controller';
 
 validateEnv();
 
@@ -51,7 +52,8 @@ validateEnv();
                 new UrlController(),
                 new VulnerabilityController(),
                 new EvidenceController(),
-                new MethodologyController()
+                new MethodologyController(),
+                new JiraController()
     ]
   );
 

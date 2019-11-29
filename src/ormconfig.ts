@@ -12,7 +12,7 @@ const config: ConnectionOptions = {
     entities: [
         __dirname + '/../**/*.entity{.ts,.js}',
     ],
-    synchronize: true,
+    synchronize: false,
     logging : true
 };
 

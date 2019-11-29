@@ -14,6 +14,7 @@ import { Type } from "class-transformer";
 import Test from "../tests/test.entity";
 import Methodology from "../methodologies/methodology.entity";
 import Test_Instance from "../test_instance/test_instance.entity";
+import Credential from "../credentials/credentials.entity";
 
 @Entity()
 class Company{
@@ -66,6 +67,13 @@ class Company{
         each : true
     })
     @IsArray()
+    @OneToMany( () => Credential, credential => credential.company)
+    credentials : Credential[];
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
     @ManyToMany( type => User, user => user.companies)
     @JoinTable()
     users : User[]
@@ -98,28 +106,6 @@ class Company{
     @IsArray()
     @OneToMany( type => Url, url => url.company)
     urls : Url[]
-
-
-    @ValidateNested({
-        each : true
-    })
-    @IsArray()
-    @OneToMany( type => Test, test => test.company)
-    test : Test[]
-
-    @ValidateNested({
-        each : true
-    })
-    @IsArray()
-    @OneToMany(type => Test_Instance, test_instance => test_instance.company)
-    test_instances : Test_Instance[]
-
-    @ValidateNested({
-        each : true
-    })
-    @IsArray()
-    @OneToMany( type => Methodology, methodology => methodology.company)
-    methodologies : Methodology[]
 
 
 
