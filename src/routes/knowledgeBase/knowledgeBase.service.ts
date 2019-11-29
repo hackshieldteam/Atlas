@@ -20,6 +20,7 @@ class KnowledgeBaseService {
                 case "23505":
                     throw new Error("KnowledgeBase already exist")
                 default:
+                console.log(error)
                     throw new Error("Unknown error");
             }
         }
@@ -27,7 +28,7 @@ class KnowledgeBaseService {
 
     public getKnowledgeBase = async (id: number) => {
         try {
-            const knowledgeBase = await this.knowledgeBaseRepository.findOne({ where: { id: id }, relations: ["functionalities"] });
+            const knowledgeBase = await this.knowledgeBaseRepository.findOne({ where: { id: id } });
             return (knowledgeBase)
         } catch (error) {
             switch (error.code) {
@@ -43,7 +44,7 @@ class KnowledgeBaseService {
 
     public getKnowledgeBases = async (filters, limit, offset) => {
         try {
-            const knowledgeBases  = await this.knowledgeBaseRepository.findAndCount({where : filters, relations : ["users"]});
+            const knowledgeBases  = await this.knowledgeBaseRepository.findAndCount({where : filters});
             return(knowledgeBases);      
         } catch (error) {
             switch (error.code) {

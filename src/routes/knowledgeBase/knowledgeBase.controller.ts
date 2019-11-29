@@ -48,6 +48,7 @@ class KnowledgeBaseController implements Controller {
             const newKnowledgeBase = await this.knowledgeBaseService.addKnowledgeBase(knowledgeBaseData);
             response.send(newKnowledgeBase);
         } catch (error) {
+            console.log(error)
             next(new HttpException(400, error.message));
         }
     }
@@ -59,7 +60,7 @@ class KnowledgeBaseController implements Controller {
             const knowledgeBase: KnowledgeBase = await this.knowledgeBaseService.modifyKnowledgeBase(request.params.id, knowledgeBaseData);
             if (knowledgeBase)
                 response.status(201).send(knowledgeBase);
-            else next(new HttpException(404, "KnowledgeBase does not exist"))
+            else next(new HttpException(404, "Knowledge entry does not exist"))
         } catch (error) {
             next(new HttpException(400, error.message))
         }
@@ -70,7 +71,7 @@ class KnowledgeBaseController implements Controller {
             const knowledgeBase: KnowledgeBase = await this.knowledgeBaseService.getKnowledgeBase(parseInt(request.params.id));
             if (knowledgeBase)
                 response.send(knowledgeBase);
-            else next(new HttpException(404, "KnowledgeBase does not exist"))
+            else next(new HttpException(404, "Knowledge entry does not exist"))
         } catch (error) {
             next(new HttpException(400, error.message))
         }
@@ -81,7 +82,7 @@ class KnowledgeBaseController implements Controller {
             const result = await this.knowledgeBaseService.deleteKnowledgeBase(parseInt(request.params.id));
             if (result.affected)
                 response.status(200).send();
-            else next(new HttpException(404, "KnowledgeBase does not exist"))
+            else next(new HttpException(404, "Knowledge entry does not exist"))
         } catch (error) {
             next(new HttpException(400, error.message))
         }
