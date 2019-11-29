@@ -60,7 +60,7 @@ class AuditService {
     }
     public getAudits = async (filters, limit, offset) => {
         try {
-            const audits  = await this.auditRepository.findAndCount({where : filters});
+            const audits  = await this.auditRepository.findAndCount({where : filters, relations : ["asset","url","vulnerabilities"]});
             return(audits);
         } catch (error) {
             switch (error.code) {
