@@ -23,6 +23,7 @@
     "express-fileupload": "*",
     "express-rate-limit": "^5.0.0",
     "file-type": "*",
+    "helmet": "^3.21.2",
     "jsonwebtoken": "*",
     "knex": "*",
     "moment": "*",

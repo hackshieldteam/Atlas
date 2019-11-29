@@ -8,6 +8,7 @@ import * as https from 'https';
 import * as cors from 'cors';
 import * as fileUpload from 'express-fileupload';
 import * as rateLimit from 'express-rate-limit';
+import * as helmet from 'helmet'
 
 const defaultLimiter = rateLimit({
     windowMs : 1*60*1000, 
@@ -30,6 +31,7 @@ class App {
         this.app.use(cookieParser());
         this.app.use(fileUpload());
         this.app.use(defaultLimiter)
+        this.app.use(helmet())
         this.app.use(cors())
         this.app.use("/auth",loginLimiter)
         this.app.use("/", controllers[0].router);
