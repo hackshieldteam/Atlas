@@ -21,18 +21,19 @@ import VulnerabilityController from './routes/vulnerabilities/vulnerability.cont
 import EvidenceController from './routes/evidences/evidence.controller';
 import MethodologyController from './routes/methodologies/methodology.controller';
 import JiraController from './routes/jira/jira.controller';
+import KnowledgeBaseController from 'routes/knowledgeBase/knowledgeBase.controller';
 
 validateEnv();
 
 
 
-(async ()=> {
-  try{
+(async () => {
+  try {
     const connection = await createConnection(config);
     await connection.runMigrations()
-    
-  }catch(error){
-    console.log("Error connecting to the database",error)
+
+  } catch (error) {
+    console.log("Error connecting to the database", error)
     return error;
   }
   const app = new App(
@@ -46,14 +47,16 @@ validateEnv();
       new AssetController(),
       new DepartmentController(),
       new AuditController(),
-                new IntegrationController(),
-                new ResponsableController(),
-                new TagController(),
-                new UrlController(),
-                new VulnerabilityController(),
-                new EvidenceController(),
-                new MethodologyController(),
-                new JiraController()
+      new IntegrationController(),
+      new ResponsableController(),
+      new TagController(),
+      new UrlController(),
+      new VulnerabilityController(),
+      new EvidenceController(),
+      new MethodologyController(),
+      new KnowledgeBaseController(),
+      new JiraController()
+
     ]
   );
 
