@@ -33,7 +33,7 @@ class AuthenticationController implements Controller{
 
 
     private createToken( user : User, functionalities : string[],groups : Group[], companies : Company[]) : TokenData{
-        const expiresIn = 60*60;
+        const expiresIn = parseInt(process.env.TOKEN_DURATION);
         const secret = process.env.JWT_SECRET;
         var groupIds = [];
         var companyIds = [];
