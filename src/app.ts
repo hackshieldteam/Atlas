@@ -7,6 +7,18 @@ import errorMiddleware from './routes/middleware/error.middleware';
 import * as https from 'https';
 import * as cors from 'cors';
 import * as fileUpload from 'express-fileupload';
+import * as rateLimit from 'express-rate-limit';
+
+const defaultLimiter = rateLimit({
+    windowMs : 1*60*1000, 
+    max : 1000
+})
+
+
+const loginLimiter = rateLimit({
+    windowMs : 15*60*1000, 
+    max : 10
+})
 
 class App {
     public app: express.Application;
@@ -17,7 +29,9 @@ class App {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
         this.app.use(fileUpload());
+        this.app.use(defaultLimiter)
         this.app.use(cors())
+        this.app.use("/auth",loginLimiter)
         this.app.use("/", controllers[0].router);
         this.app.use("/", controllers[1].router);
         this.app.use("/", controllers[2].router);

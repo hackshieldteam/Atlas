@@ -21,6 +21,7 @@
     "envalid": "*",
     "express": "*",
     "express-fileupload": "*",
+    "express-rate-limit": "^5.0.0",
     "file-type": "*",
     "jsonwebtoken": "*",
     "knex": "*",
