@@ -8,6 +8,7 @@ import * as request from 'request'
 
 class JiraService {
     public result: any;
+    public result2: any;
     private jiraRepository = getRepository(Jira)
     private oauthRequest = {}
     public OauthTokenJira = async (jiraData : OauthTokenJiraDto ) => {
@@ -15,7 +16,7 @@ class JiraService {
         try {
             //Integration process
             //Get Unauthorized Token
-            let consumer: OAuth =  new OAuth(jiraData.homePath + "/plugins/servlet/oauth/request-token",
+            let consumer: OAuth = new OAuth(jiraData.homePath + "/plugins/servlet/oauth/request-token",
                 jiraData.homePath + "/plugins/servlet/oauth/access-token",
                 jiraData.consumerKey,
                 jiraData.consumerPrivateKey,
@@ -23,23 +24,11 @@ class JiraService {
                 "http://localhost:8090/sessions/callback",
                 "RSA-SHA1",
             );
-            //Get Access Token
-
-           this.result = consumer.getOAuthRequestToken(
-                (error, oauthToken, oauthTokenSecret, results) => {
-                    if (error) {
-                        console.log(error.data);
-                        //HAY QUE CONTROLAR EL ERROR
-                    }
-                    else {
-                        var jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken
-                        console.log({'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret, 'jira_auth_url': jira_auth_url})
-                        return {'oauthToken': oauthToken,'jira_auth_url': jira_auth_url}
-                    }
-                }
-            )
-            console.log(`El resultado es: ${this.result}`)
-            return this.result;
+            //Get Access Token  
+           await this.prueba(consumer, jiraData);
+            
+            console.log(`El resultado es: ${this.result2}`)
+            return this.result2;
             
             //const jira = await this.jiraRepository.save(jiraData);
             //return(jira)
@@ -57,6 +46,22 @@ class JiraService {
         }
     }
 
+    public prueba = async (consumer: OAuth, jiraData) => {
+        consumer.getOAuthRequestToken(
+            (error, oauthToken, oauthTokenSecret, results) => {
+                if (error) {
+                    console.log(error.data);
+                    //HAY QUE CONTROLAR EL ERROR
+                }
+                else {
+                    var jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken
+                    console.log({'oauthToken': oauthToken,'oauthTokenSecret': oauthTokenSecret, 'jira_auth_url': jira_auth_url})
+                    this.result2 =  {'oauthToken': oauthToken,'jira_auth_url': jira_auth_url}
+                    return;
+                }
+            }
+        )
+    }
 
     public AccessTokenJira = async (jiraData : OauthTokenJiraDto ) => {
         try {
