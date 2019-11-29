@@ -11,6 +11,7 @@ import Profile from "../profiles/profile.entity";
 import Responsable from "../responsables/responsable.entity";
 import Tag from "../tags/tag.entity";
 import { Type } from "class-transformer";
+import Credential from "../credentials/credentials.entity";
 
 @Entity()
 class Company{
@@ -58,6 +59,13 @@ class Company{
     @IsArray()
     @OneToMany( () => Audit, audit => audit.company)
     audits : Audit[];
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @OneToMany( () => Credential, credential => credential.company)
+    credentials : Credential[];
 
     @ValidateNested({
         each : true

@@ -60,7 +60,15 @@ export class Seed1570749316223 implements MigrationInterface {
         await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('ADD VULNERABILITIES')");
         await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('MODIFY VULNERABILITIES')");
         await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('DELETE VULNERABILITIES')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('GET CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('ADD CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('MODIFY CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_functionality(name) VALUES ('DELETE CREDENTIALS')");
         await queryRunner.query("INSERT INTO t_profile(id,name) VALUES (1,'Admin')");
+        await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY CREDENTIALS')");
+        await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE CREDENTIALS')");
         await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET COMPANIES')");
         await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD COMPANIES')");
         await queryRunner.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY COMPANIES')");
