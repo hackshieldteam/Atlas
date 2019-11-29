@@ -7,13 +7,14 @@ import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
 import { modifyEntries } from '../../utils/modifyEntries';
 import { CreateKnowledgeDto, FindKnowledgeDto, UpdateKnowledgeDto } from './knowledgeBase.dto';
+import KnowledgeBaseService from './knowledgeBase.service';
 
 
 
 class KnowledgeBaseController implements Controller {
     public path = "/knowledgeBases";
     public router = express.Router();
-    private knowledgeBaseService = new this.knowledgeBaseService();
+    private knowledgeBaseService = new KnowledgeBaseService();
 
 
     constructor() {
