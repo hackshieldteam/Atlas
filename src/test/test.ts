@@ -28,6 +28,8 @@ import EvidenceController from '../routes/evidences/evidence.controller';
 import * as fs from 'fs';
 import MethodologyController from '../routes/methodologies/methodology.controller';
 import Test from 'entities/test.entity';
+import KnowledgeBaseController from '../routes/knowledgeBase/knowledgeBase.controller';
+import JiraController from '../routes/jira/jira.controller';
 
 
 validateEnv();
@@ -60,6 +62,14 @@ describe('Atlas endpoints', () => {
                 entityManager.query('INSERT INTO t_profile("id","name") VALUES (3,\'ModProfile\')'),
                 entityManager.query('INSERT INTO t_profile("id","name") VALUES (4,\'DelProfile\')'),
                 entityManager.query('INSERT INTO t_profile("id","name") VALUES (5,\'VulnProfile\')'),
+
+
+                entityManager.query('INSERT INTO t_knowledge_base("id","name","category","content") VALUES (1,\'XSS\',\'description\',\'Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted websites. XSS attacks occur when an attacker uses a web application to send malicious code, generally in the form of a browser side script, to a different end user. Flaws that allow these attacks to succeed are quite widespread and occur anywhere a web application uses input from a user within the output it generates without validating or encoding it.\')'),
+                entityManager.query('INSERT INTO t_knowledge_base("id","name","category","content") VALUES (2,\'SQL Injection\',\'description\',\'SQL injection usually occurs when you ask a user for input, like their username/userid, and instead of a name/id, the user gives you an SQL statement that you will unknowingly run on your database.\')'),
+                entityManager.query('INSERT INTO t_knowledge_base("id","name","category","content") VALUES (3,\'SQL Injection(PHP)\',\'solution\',\'To protect a web site from SQL injection, you can use SQL parameters.\')'),
+                entityManager.query('INSERT INTO t_knowledge_base("id","name","category","content") VALUES (4,\'XSS (Angular)\',\'solution\',\'Do NOT simply escape the list of example characters provided in the various rules. It is NOT sufficient to escape only that list. Blacklist approaches are quite fragile. The whitelist rules here have been carefully designed to provide protection even against future vulnerabilities introduced by browser changes.\')'),
+                entityManager.query('INSERT INTO t_knowledge_base("id","name","category","content") VALUES (5,\'CORS\',\'description\',\'El intercambio de recursos de origen cruzado o CORS (Cross-origin resource sharing, en sus siglas en inglés) es un mecanismo que permite que se puedan solicitar recursos restringidos (como por ejemplo, las tipografías) en una página web desde un dominio fuera del dominio que sirvió el primer recurso.\')'),
+                
             ]);
 
             //Areas
@@ -133,6 +143,14 @@ describe('Atlas endpoints', () => {
                 entityManager.query('INSERT INTO t_functionality("name") VALUES (\'FALSEPOSITIVE VULNERABILITIES\')'),
                 entityManager.query('INSERT INTO t_functionality("name") VALUES (\'OPEN VULNERABILITIES\')'),
                 entityManager.query('INSERT INTO t_functionality("name") VALUES (\'REVISION VULNERABILITIES\')'),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET METHODOLOGIES')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD METHODOLOGIES')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY METHODOLOGIES')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE METHODOLOGIES')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET KNOWLEDGE')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD KNOWLEDGE')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY KNOWLEDGE')"),
+                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE KNOWLEDGE')"),
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET COMPANIES\')'),
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD COMPANIES\')'),
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY COMPANIES\')'),
@@ -191,6 +209,17 @@ describe('Atlas endpoints', () => {
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'FALSEPOSITIVE VULNERABILITIES\')'),
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ASSUME VULNERABILITIES\')'),
                 entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (5,\'MODIFY VULNERABILITIES\')'),
+
+
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET METHODOLOGIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD METHODOLOGIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY METHODOLOGIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE METHODOLOGIES\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'GET KNOWLEDGE\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'ADD KNOWLEDGE\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'MODIFY KNOWLEDGE\')'),
+                entityManager.query('INSERT INTO t_profile_functionalities_functionality ("profileId","functionalityName") VALUES (1,\'DELETE KNOWLEDGE\')'),
+                
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (1,\'r1@mail.com\',\'Resp1\',\'611111111\',1)'),
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (2,\'r2@mail.com\',\'Resp2\',\'622222222\',1)'),
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (3,\'r3@mail.com\',\'Resp3\',\'633333333\',1)'),
@@ -201,146 +230,9 @@ describe('Atlas endpoints', () => {
                 entityManager.query("INSERT INTO t_methodology VALUES (3,'ModMethodology',1)"),
                 entityManager.query("INSERT INTO t_methodology VALUES (4,'DelMethodology',1)"),
                 entityManager.query("INSERT INTO t_methodology VALUES (5,'Methodology5',5)"),
-                entityManager.query("INSERT INTO t_area VALUES (1,'Area1',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (2,'Area2',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (3,'ModArea',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (4,'DelArea',1)"),
-                entityManager.query("INSERT INTO t_area VALUES (5,'Area5',5)"),
-                entityManager.query("INSERT INTO t_user  VALUES (1,'User1','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (2,'User2','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',2)"),
-                entityManager.query("INSERT INTO t_user  VALUES (3,'ModUser','c',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (4,'DelUser','c',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (5,'User5','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',2)"),
-                entityManager.query("INSERT INTO t_user  VALUES (6,'User6','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',1)"),
-                entityManager.query("INSERT INTO t_user  VALUES (7,'User7','$2b$10$9tblbSiNZVrZ5f904cwQxeZXo4OaQpbnnYkoB2qen7XwJHNAKuJe.',5)"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE COMPANIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE PROFILES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE GROUPS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE USERS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE AREAS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE ASSETS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE AUDITS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE TAGS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE URLS')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE EVIDENCES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('GET VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ADD VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('DELETE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('CLOSE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('ASSUME VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('FALSEPOSITIVE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('OPEN VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_functionality(name) VALUES ('REVISION VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE METHODOLOGIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE COMPANIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE PROFILES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE GROUPS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE USERS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE AREAS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE ASSETS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE DEPARTMENTS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE AUDITS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE TAGS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE INTEGRATIONS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE EVIDENCES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE URLS')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'GET VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ADD VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'DELETE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'OPEN VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'CLOSE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'REVISION VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'FALSEPOSITIVE VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (1,'ASSUME VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_profile_functionalities_functionality VALUES (5,'MODIFY VULNERABILITIES')"),
-                entityManager.query("INSERT INTO t_responsable VALUES (1,'r1@mail.com','Resp1','611111111',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (2,'r2@mail.com','Resp2','622222222',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (3,'r3@mail.com','Resp3','633333333',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (4,'r4@mail.com','Resp4','644444444',1)"),
-                entityManager.query("INSERT INTO t_responsable VALUES (5,'r5@mail.com','Resp5','655555555',5)")
+
+
+
             ]);
 
             //Departments
@@ -359,11 +251,6 @@ describe('Atlas endpoints', () => {
                 entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (3,\'MA\',0,3,3,0,3,\'ModAsset\',0,\'hg3\',3,\'Asset 3\',0,\'2019-09-01\',3,0,100,1,1,1)'),
                 entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (4,\'DA\',0,3,3,0,3,\'DelAsset\',0,\'hgf4\',3,\'Asset 4\',0,\'2019-09-01\',3,0,100,1,1,1)'),
                 entityManager.query('INSERT INTO t_asset ("id","alias","authentication","authorization","availability","class","confidenciality","description","enviroment","hgf","integrity","name","status","statusDate","trazability","visibility","volumetry","businessAreaId","companyId","departmentId") VALUES (5,\'A2\',1,2,2,1,2,\'My second asset\',1,\'hgf5\',2,\'Asset 5\',1,\'2020-01-01\',3,0,92,5,5,5)'),
-                entityManager.query("INSERT INTO t_asset VALUES (1,'A1',0,3,3,0,3,'My first asset',0,'hgf1',3,'Asset 1',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (2,'NA',0,3,3,0,3,'NeoAsset',0,'hgf2',3,'Asset 2',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (3,'MA',0,3,3,0,3,'ModAsset',0,'hg3',3,'Asset 3',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (4,'DA',0,3,3,0,3,'DelAsset',0,'hgf4',3,'Asset 4',0,'2019-09-01',3,0,100,1,1,1)"),
-                entityManager.query("INSERT INTO t_asset VALUES (5,'A2',1,2,2,1,2,'My second asset',1,'hgf5',2,'Asset 5',1,'2020-01-01',3,0,92,5,5,5)")
             ]);
 
             //URLs
@@ -437,8 +324,6 @@ describe('Atlas endpoints', () => {
             await Promise.all([
                 entityManager.query('INSERT INTO t_responsable_to_asset ("responsableId","assetId","role","info") VALUES(1,1,\'RFA\',\'Approval\')'),
                 entityManager.query('INSERT INTO t_responsable_to_asset ("responsableId","assetId","role","info") VALUES(5,5,\'RFA\',\'Approval\')'),
-                entityManager.query("INSERT INTO t_responsable_to_asset VALUES(1,1,'RFA','Approval')"),
-                entityManager.query("INSERT INTO t_responsable_to_asset VALUES(5,5,'RFA','Approval')"),
                 entityManager.query("ALTER SEQUENCE t_test_id_seq RESTART WITH 6"),
                 entityManager.query("ALTER SEQUENCE t_user_id_seq RESTART WITH 8"),
                 entityManager.query("ALTER SEQUENCE t_evidence_id_seq RESTART WITH 1"),
@@ -453,7 +338,8 @@ describe('Atlas endpoints', () => {
                 entityManager.query("ALTER SEQUENCE t_audit_id_seq RESTART WITH 6"),
                 entityManager.query("ALTER SEQUENCE t_department_id_seq RESTART WITH 5"),
                 entityManager.query("ALTER SEQUENCE t_integration_id_seq RESTART WITH 5"),
-                entityManager.query("ALTER SEQUENCE t_responsable_id_seq RESTART WITH 5")
+                entityManager.query("ALTER SEQUENCE t_responsable_id_seq RESTART WITH 5"),
+                entityManager.query("ALTER SEQUENCE t_knowledge_base_id_seq RESTART WITH 6")
             ]);
 
             app = new App([
@@ -472,7 +358,9 @@ describe('Atlas endpoints', () => {
                 new UrlController(),
                 new VulnerabilityController(),
                 new EvidenceController(),
-                new MethodologyController()
+                new MethodologyController(),
+                new KnowledgeBaseController(),
+                new JiraController()
             ]);
 
             await app.listen();
@@ -532,6 +420,7 @@ describe('Atlas endpoints', () => {
         await entityManager.query("DELETE FROM t_methodology");
         await entityManager.query("DELETE FROM t_area");
         await entityManager.query("DELETE FROM t_profile");
+        await entityManager.query("DELETE FROM t_knowledge_base");
         await entityManager.query("DELETE FROM t_company");
         await connection.close()
         await app.closeServer()
@@ -3901,4 +3790,247 @@ describe('Atlas endpoints', () => {
             });
         });
     });
+
+    describe("Knowledge endpoints", () => {
+        describe("Get all knowledge entries", () => {
+            it("Without perms,it is not possible to use the endpoint", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases/search")
+                    .set("XToken", tokenWithoutPermissions)
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("It is mandatory to be logged to use the endpoint", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases/search")
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("Without filters, all knowledges are recovered", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases/search")
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 200);
+                        equal(res.body[0].length, 5);
+                        done()
+                    })
+            });
+            it("It is possible to filter knowledge by name", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases/search")
+                    .send([{ name: "RS" }])
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 200);
+                        equal(res.body[0][0].name, "CORS");
+                        done()
+                    })
+            })
+        });
+        describe("Get one knowledge  entry", () => {
+            it("Without perms, is not possible to use the endpoint", (done) => {
+                request(app.getServer())
+                    .get("/knowledgeBases/1")
+                    .set("XToken", tokenWithoutPermissions)
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+
+            it("It is mandatory to be logged to use the endpoint", (done) => {
+                request(app.getServer())
+                    .get("/knowledgeBases/1")
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("Knowledge entry not found is handled propperly", (done) => {
+                request(app.getServer())
+                    .get("/knowledgeBases/212")
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 404);
+                        equal(res.body.message, "Knowledge entry does not exist");
+                        done()
+                    })
+            });
+            it("It is possible to retrieve a knowledge entry by id", (done) => {
+                request(app.getServer())
+                    .get("/knowledgeBases/1")
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 200);
+                        equal(res.body.name, "XSS");
+                        done()
+                    })
+            });
+
+        });
+        describe("Update one knowledge entry", () => {
+            it("Without perms, is not possible to use the endpoint", (done) => {
+                request(app.getServer())
+                    .patch("/knowledgeBases/1")
+                    .set("XToken", tokenWithoutPermissions)
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+
+            it("It is mandatory to be logged to use the endpoint", (done) => {
+                request(app.getServer())
+                    .patch("/knowledgeBases/1")
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("Entry not found is handled propperly", (done) => {
+                request(app.getServer())
+                    .patch("/knowledgeBases/212")
+                    .set("XToken", token)
+                    .send({ name: "NewEntry" })
+                    .then(res => {
+                        equal(res.status, 404);
+                        equal(res.body.message, "Knowledge entry does not exist");
+                        done()
+                    })
+            });
+            it("It is possible to update entry's name", (done) => {
+                request(app.getServer())
+                    .patch("/knowledgeBases/3")
+                    .set("XToken", token)
+                    .send({ name: "EntryModifyed" })
+                    .then(res => {
+                        equal(res.status, 201);
+                        equal(res.body.name, "EntryModifyed");
+                        done();
+                    });
+            });
+        });
+        describe("Add one entry", () => {
+            it("Without perms, is not possible to use the endpoint", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases")
+                    .set("XToken", tokenWithoutPermissions)
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+
+            it("It is mandatory to be logged to use the endpoint", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases").then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("New entries are created propperly", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases")
+                    .set("XToken", token)
+                    .send({ name: "Bypass authentication", category : "description", content : "yep" })
+                    .then(res => {
+                        equal(res.status, 200);
+                        equal(res.body.name, "Bypass authentication");
+                        done();
+                    });
+            });
+
+
+
+            it("Name is mandatory", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases")
+                    .send({
+                        content : "a",
+                        category : "description"
+                    })
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 400);
+                        done();
+                    });
+            });
+
+            it("Content is mandatory", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases")
+                    .send({
+                        name : "a",
+                        category : "description"
+                    })
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 400);
+                        done();
+                    });
+            });
+
+            it("Category is mandatory", (done) => {
+                request(app.getServer())
+                    .post("/knowledgeBases")
+                    .send({
+                        content : "a",
+                        name : "description"
+                    })
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 400);
+                        done();
+                    });
+            });
+        });
+        describe("Delete one entry", () => {
+            it("Without perms, is not possible to use the endpoint", (done) => {
+                request(app.getServer())
+                    .delete("/knowledgeBases/1")
+                    .set("XToken", tokenWithoutPermissions)
+                    .then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+
+            it("It is mandatory to be logged to use the endpoint", (done) => {
+                request(app.getServer())
+                    .delete("/knowledgeBases/1").then(res => {
+                        equal(res.status, 401);
+                        done()
+                    })
+            });
+            it("Entry not found is handled propperly", (done) => {
+                request(app.getServer())
+                    .delete("/knowledgeBases/212")
+                    .set("XToken", token)
+                    .then(res => {
+                        equal(res.status, 404);
+                        equal(res.body.message, "Knowledge entry does not exist");
+                        done()
+                    })
+            });
+            it("Entries are deleted", (done) => {
+                request(app.getServer())
+                    .delete("/knowledgeBases/4")
+                    .set("XToken", token)
+                    .then(res => {
+                        request(app.getServer())
+                            .get("/knowledgeBases/4")
+                            .set("XToken", token)
+                            .then(res => {
+                                equal(res.status, 404);
+                                done()
+                            })
+                    })
+            });
+        });
+    });    
 });
