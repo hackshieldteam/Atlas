@@ -2,15 +2,14 @@ import * as express from 'express';
 import Controller from 'routes/interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import permissionMiddleware from '../middleware/permission.middleware';
-import { RequestTokenJiraDto,CallbackJira,AccessTokenJiraDto, UpdateJiraDto, FindJiraDto } from './jira.dto';
+import {RequestTokenJiraDto, AccessTokenJiraDto, UpdateJiraDto, FindJiraDto} from './jira.dto';
 import JiraService from './jira.service';
 import HttpException from '../exceptions/HTTPException';
 import authMiddleware from '../middleware/auth.middleware';
 import Jira from './jira.entity';
 import * as jwt from 'jsonwebtoken';
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
-import { modifyEntries, addCompanyFilter } from '../../utils/modifyEntries';
-
+import {modifyEntries, addCompanyFilter} from '../../utils/modifyEntries';
 
 
 class JiraController implements Controller {
@@ -24,10 +23,11 @@ class JiraController implements Controller {
 
     private initializeRoutes() {
         this.router.post(this.path + "/integrationwithoutaccesstoken/getRequestToken", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(RequestTokenJiraDto), this.RequestTokenJira);
-        this.router.post(this.path + "/integrationwithoutaccesstoken/callback", this.CallbackJira);
+        // this.router.post(this.path + "/integrationwithoutaccesstoken/callback", this.CallbackJira);
         this.router.post(this.path + "/integrationwithtaccesstoken", authMiddleware, permissionMiddleware(["ADD JIRA"]), validationMiddleware(AccessTokenJiraDto), this.AccessTokenJira);
         this.router.all(this.path + "/*", authMiddleware);
     }
+
     //     this.router.post(this.path + "/search", permissionMiddleware(["GET AREAS"]), validationMiddleware(FindAreaDto), this.getAreas);
     //     this.router.get(this.path + "/:id", permissionMiddleware(["GET AREAS"]), this.getArea);
     //     this.router.get(this.path + "/:id/departments", permissionMiddleware(["GET AREAS", "GET DEPARTMENTS"]), validationMiddleware(FindAreaDto), this.getAreaDepartments);
@@ -71,7 +71,7 @@ class JiraController implements Controller {
             const secret = process.env.JWT_SECRET;
 
             const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
-            var jiraData: OauthTokenJiraDto = request.body;
+            var jiraData: RequestTokenJiraDto = request.body;
             if (companies.indexOf(jiraData.company.id) == -1) {
                 next(new HttpException(400, "User does not belong to that company"))
             } else {
@@ -96,7 +96,7 @@ class JiraController implements Controller {
     //     }
     // }
     private setFilters = (request: express.Request, filterCompanies) => {
-        filterCompanies.push({ id: parseInt(request.params.id) });
+        filterCompanies.push({id: parseInt(request.params.id)});
         const secret = process.env.JWT_SECRET;
         const companies = (jwt.verify(request.header('xtoken'), secret) as DataStoredInToken).companies;
         addCompanyFilter(filterCompanies, companies);

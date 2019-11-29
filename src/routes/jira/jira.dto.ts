@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import Vulnerability from '../vulnerabilities/vulnerability.entity';
 import Company from '../companies/company.entity';
 
-class OauthTokenJiraDto {
+class RequestTokenJiraDto {
   
     @IsDefined()
     @IsString()
@@ -135,7 +135,7 @@ class OauthTokenJiraDto {
 
 export {
     UpdateJiraDto,
-    OauthTokenJiraDto,
+    RequestTokenJiraDto,
     AccessTokenJiraDto,
     FindJiraDto
   }
