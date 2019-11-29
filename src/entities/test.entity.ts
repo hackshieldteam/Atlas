@@ -26,8 +26,8 @@ description : string
 
 @ValidateNested()
 @Type(() => Methodology)
-@ManyToOne(type => Methodology, (methodology : Methodology) => methodology.tests)
-methodology : Methodology
+@ManyToMany(type => Methodology, (methodology : Methodology) => methodology.tests)
+methodologies : Methodology[]
 
 @ValidateNested({
     each : true

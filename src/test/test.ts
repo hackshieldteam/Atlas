@@ -225,11 +225,11 @@ describe('Atlas endpoints', () => {
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (3,\'r3@mail.com\',\'Resp3\',\'633333333\',1)'),
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (4,\'r4@mail.com\',\'Resp4\',\'644444444\',1)'),
                 entityManager.query('INSERT INTO t_responsable ("id","email","name","tlf","companyId") VALUES (5,\'r5@mail.com\',\'Resp5\',\'655555555\',5)'),
-                entityManager.query("INSERT INTO t_methodology VALUES (1,'Methodology1',1)"),
-                entityManager.query("INSERT INTO t_methodology VALUES (2,'NeoMethodology',1)"),
-                entityManager.query("INSERT INTO t_methodology VALUES (3,'ModMethodology',1)"),
-                entityManager.query("INSERT INTO t_methodology VALUES (4,'DelMethodology',1)"),
-                entityManager.query("INSERT INTO t_methodology VALUES (5,'Methodology5',5)"),
+                entityManager.query('INSERT INTO t_methodology ("id","description","name","companyId") VALUES (1,\'D1\',\'Methodology1\',1)'),
+                entityManager.query('INSERT INTO t_methodology ("id","description","name","companyId") VALUES (2,\'D2\',\'NeoMethodology\',1)'),
+                entityManager.query('INSERT INTO t_methodology ("id","description","name","companyId") VALUES (3,\'D3\',\'ModMethodology\',1)'),
+                entityManager.query('INSERT INTO t_methodology ("id","description","name","companyId") VALUES (4,\'D4\',\'DelMethodology\',1)'),
+                entityManager.query('INSERT INTO t_methodology ("id","description","name","companyId") VALUES (5,\'D5\',\'Methodology5\',5)'),
 
 
 
@@ -2326,7 +2326,6 @@ describe('Atlas endpoints', () => {
                             id: 1
                         }, enviroment: 0,
                         kind: 0,
-                        location: 0,
                         status: 0,
                         visibility: 0
                     })
@@ -3678,7 +3677,7 @@ describe('Atlas endpoints', () => {
                 request(app.getServer())
                     .post("/methodologies")
                     .set("XToken", token)
-                    .send({ name: "Added Methodology", company : {
+                    .send({ name: "Added Methodology", description : "dd" ,company : {
                         id : 1
                     } })
                     .then(res => {
@@ -3693,7 +3692,7 @@ describe('Atlas endpoints', () => {
                     .post("/methodologies")
                     .set("XToken", token)
                     .send({
-                        name: "OWASP TOP 2", company : {
+                        name: "OWASP TOP 2",description : "dd", company : {
                             id : 1
                         }, tests: [ {
                             name: "INJECTION",

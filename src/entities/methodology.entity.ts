@@ -1,4 +1,4 @@
-import { Entity, Column,PrimaryGeneratedColumn, OneToMany, ManyToOne, Index } from "typeorm";
+import { Entity, Column,PrimaryGeneratedColumn, OneToMany, ManyToOne, Index, ManyToMany, JoinTable } from "typeorm";
 import { IsDefined, IsString, IsNotEmpty, ValidateNested, IsArray } from "class-validator";
 import Test from "./test.entity";
 import Company from "./company.entity";
@@ -18,8 +18,17 @@ class Methodology {
     @Column("varchar",{ length : 50 })
     name: string;
 
-    @Type(() => Test)
-    @OneToMany(type => Test, (test: Test) => test.methodology,{ cascade : ["insert"]})
+    @IsString()
+    @Column("text")
+    description : string
+
+
+    @ValidateNested({
+        each : true
+    })
+    @IsArray()
+    @ManyToMany(type => Test, (test: Test) => test.methodologies)
+    @JoinTable()
     public tests: Test[]
 
     @ValidateNested()
