@@ -1,7 +1,7 @@
 import { getRepository, Like } from 'typeorm';
 import {CreateTrackingDto, FindTrackingDto, UpdateTrackingDto} from './tracking.dto';
 import Tracking from '../../entities/tracking.entity';
-import {request} from 'request'
+import * as request from 'request'
 
 
 
@@ -14,21 +14,31 @@ class TrackingService {
     public addTracking = async (trackingData: CreateTrackingDto) => {
         try {
             let url: string = this.jira_path + "/rest/api/2/issue/" 
+
             let issueData = {
-                "fields": {
-                   "project":
+                fields: {
+                    "issuetype": {
+                        name: "Historia"
+                     },
+                   project:
                    {
-                      "key": "HAC"
+                      key: "HAC"
                    },
-                   "priority" : {"name": "Medium"},
-                   "summary": "Atlas_HAC: Altas_Endpoint Issue Creada",
-                   "description": "Creating of an issue using project keys and issue type names using the REST API",
-                   "issuetype": {
-                      "name": "Historia"
-                   }
+                   priority : {name: "Medium"},
+                   summary: "Atlas_HAC: Altas_Endpoint Issue Creada",
+                   description: "Creating of an issue using project keys and issue type names using the REST API",
                }
             };
-            request.post({url: url, formData: issueData}, (err, httpResponse, body) =>{
+
+            let options = {
+                method : "POST",
+                url : url,
+                headers : { "Content-Type" : "application/json"},
+                body : JSON.stringify(issueData)
+            }
+
+            console.log(issueData)
+            request(options, (err, response, body) =>{
                 if (err) {
                     return console.error('upload failed:', err);
                 }
@@ -52,6 +62,7 @@ class TrackingService {
                 case "23505":
                     throw new Error("Area already exist")
                 default:
+                    console.log(error)
                     throw new Error("Unknown error");
             }
         }

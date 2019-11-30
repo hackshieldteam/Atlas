@@ -29,8 +29,10 @@ class TrackingController implements Controller {
     private test = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         try {
             let tracking: CreateTrackingDto
+            console.log('hasta aqui')
             const trackingService = await this.trackingService.addTracking(tracking)
-           // tracking.key = "HAC"
+            console.log('hasta aqui2')
+            // tracking.key = "HAC"
 
             response.send();
         } catch (error) {
