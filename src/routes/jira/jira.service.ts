@@ -4,7 +4,7 @@ import {RequestTokenJiraDto, AccessTokenJiraDto, UpdateJiraDto} from './jira.dto
 import HttpException from '../exceptions/HTTPException';
 import {OAuth} from 'oauth';
 import * as fs from 'fs';
-import * as request from 'request'
+import * as request from 'request';
 
 class JiraService {
     public result: any;
@@ -27,7 +27,6 @@ class JiraService {
             //Get Access Token  
             await this.prueba(consumer, jiraData);
 
-            console.log(`El resultado es: ${this.result2}`);
             return this.result2;
 
             //const jira = await this.jiraRepository.save(jiraData);
@@ -35,36 +34,30 @@ class JiraService {
         } catch (error) {
             switch (error.code) {
                 case "42601":
-                    throw new Error("Syntax error")
+                    throw new Error("Syntax error");
                 case "23503":
-                    throw new Error("Reference is missing")
+                    throw new Error("Reference is missing");
                 case "23505":
-                    throw new Error("Area already exist")
+                    throw new Error("Area already exist");
                 default:
                     throw new Error("Unknown error");
             }
         }
-    }
+    };
 
     public prueba = async (consumer: OAuth, jiraData) => {
         consumer.getOAuthRequestToken(
             (error, oauthToken, oauthTokenSecret, results) => {
                 if (error) {
-                    console.log(error.data);
                     //HAY QUE CONTROLAR EL ERROR
                 } else {
-                    let jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken
-                    console.log({
-                        'oauthToken': oauthToken,
-                        'oauthTokenSecret': oauthTokenSecret,
-                        'jira_auth_url': jira_auth_url
-                    })
-                    this.result2 = {'oauthToken': oauthToken, 'jira_auth_url': jira_auth_url}
+                    let jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken;
+                    this.result2 = {'oauthToken': oauthToken, 'jira_auth_url': jira_auth_url};
                     return;
                 }
             }
-        )
-    }
+        );
+    };
 
     public AccessTokenJira = async (jiraData: RequestTokenJiraDto) => {
         try {
@@ -78,25 +71,19 @@ class JiraService {
                 "http://localhost:8090/sessions/callback",
                 "RSA-SHA1",
             );
-            let oauthRequest = {}
+            let oauthRequest = {};
             //Get Access Token
             async () => {
                 await consumer.getOAuthRequestToken(
-                    function (error, oauthToken, oauthTokenSecret, results) {
+                    function(error, oauthToken, oauthTokenSecret, results) {
                         if (error) {
-                            console.log(error.data);
                             //HAY QUE CONTROLAR EL ERROR
                         } else {
-                            let jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken
-                            console.log({
-                                'oauthToken': oauthToken,
-                                'oauthTokenSecret': oauthTokenSecret,
-                                'jira_auth_url': jira_auth_url
-                            })
-                            oauthRequest = {'oauthToken': oauthToken, 'jira_auth_url': jira_auth_url}
+                            let jira_auth_url = jiraData.homePath + "/plugins/servlet/oauth/authorize?oauth_token=" + oauthToken;
+                            oauthRequest = {'oauthToken': oauthToken, 'jira_auth_url': jira_auth_url};
                         }
                     }
-                )
+                );
             };
 
             return oauthRequest;
@@ -105,16 +92,16 @@ class JiraService {
         } catch (error) {
             switch (error.code) {
                 case "42601":
-                    throw new Error("Syntax error")
+                    throw new Error("Syntax error");
                 case "23503":
-                    throw new Error("Reference is missing")
+                    throw new Error("Reference is missing");
                 case "23505":
-                    throw new Error("Area already exist")
+                    throw new Error("Area already exist");
                 default:
                     throw new Error("Unknown error");
             }
         }
-    }
+    };
 
     public getJira = async (filters, relations) => {
         try {
@@ -123,14 +110,14 @@ class JiraService {
         } catch (error) {
             switch (error.code) {
                 case "42601":
-                    throw new Error("Syntax error")
+                    throw new Error("Syntax error");
                 case "23503":
-                    throw new Error("Reference is missing")
+                    throw new Error("Reference is missing");
                 default:
                     throw new Error("Unknown error");
             }
         }
-    }
+    };
     public deleteJira = async (id) => {
         try {
             const deletedJira = await this.jiraRepository.delete(id);
@@ -149,22 +136,21 @@ class JiraService {
             let jira: Jira = await this.jiraRepository.findOne(id);
             if (jira) {
                 const updatedJira = await this.jiraRepository.save(Object.assign(jira, jiraData));
-                return (updatedJira)
+                return (updatedJira);
             } else {
-                return null
+                return null;
             }
         } catch (error) {
             switch (error.code) {
                 case "42601":
-                    throw new Error("Syntax error")
+                    throw new Error("Syntax error");
                 case "23505":
-                    throw new Error("Company already exist")
+                    throw new Error("Company already exist");
                 default:
-                    console.log(error)
                     throw new Error("Unknown error");
             }
         }
-    }
+    };
 
 }
 
