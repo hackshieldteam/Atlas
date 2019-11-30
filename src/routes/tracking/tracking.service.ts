@@ -7,9 +7,9 @@ import {request} from 'request'
 
 class TrackingService {
     private trackingRepository = getRepository(Tracking)
-    private jira_user : string = 'your user'
-    private jira_pass : string = 'Myour pass'
-    private jira_path : string = 'http://example.com'
+    private jira_user : string = ''
+    private jira_pass : string = ''
+    private jira_path : string = ''
 
     public addTracking = async (trackingData: CreateTrackingDto) => {
         try {
@@ -38,8 +38,8 @@ class TrackingService {
                     issue.key = body.key
                     issue.jira_id = body.id,
                     issue.jira_path = body.self,
-                    issue.status = 'OPEN',
-                    issue.vulnerability = trackingData.vulnerability        
+                    issue.status = 'OPEN'
+                    // issue.vulnerability = trackingData.vulnerability        
                     const tracking = this.trackingRepository.save(issue);                                         }
             }).auth(this.jira_user, this.jira_pass, false);
 
@@ -94,7 +94,7 @@ class TrackingService {
             
             var tracking : Tracking = await this.trackingRepository.findOne(id)
             if(tracking){
-                let url: string = this.jira_path + "/rest/api/2/issue/" 
+                let url: string = this.jira_path + "/rest/api/2/issue/" + tracking.key 
                 let issueData = {
                     "fields": {
                        "project":

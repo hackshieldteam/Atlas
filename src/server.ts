@@ -20,8 +20,8 @@ import UrlController from './routes/urls/url.controller';
 import VulnerabilityController from './routes/vulnerabilities/vulnerability.controller';
 import EvidenceController from './routes/evidences/evidence.controller';
 import MethodologyController from './routes/methodologies/methodology.controller';
-import JiraController from './routes/jira/jira.controller';
-import KnowledgeBaseController from 'routes/knowledgeBase/knowledgeBase.controller';
+import TrackingController from './routes/tracking/tracking.controller';
+import KnowledgeBaseController from './routes/knowledgeBase/knowledgeBase.controller';
 
 validateEnv();
 
@@ -55,7 +55,7 @@ validateEnv();
       new EvidenceController(),
       new MethodologyController(),
       new KnowledgeBaseController(),
-      new JiraController()
+      new TrackingController()
 
     ]
   );

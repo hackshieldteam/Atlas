@@ -8,10 +8,10 @@ class CreateTrackingDto {
     @IsString()
     public key: string;
 
-    @IsDefined()
-    @Type(() => Vulnerability)
-    @ValidateNested()
-    public vulnerability: Vulnerability;
+    // @IsDefined()
+    // @Type(() => Vulnerability)
+    // @ValidateNested()
+    // public vulnerability: Vulnerability;
 }
 
 class FindTrackingDto {
