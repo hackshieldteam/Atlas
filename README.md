@@ -46,4 +46,21 @@ This will create all the database tables if is the first time and start the
 development server on port.
 
 
+## F.A.Q
+
+### Atlas application does not start
+1.Make sure that the port indicated in the .env file is available and it is not already in use
+2.Check that your .cert and .key files are deployed and their path is set in the .env file, in the CRYPTOKEY and CRYPTOCERT variables
+
+### My new endpoint does not work
+1.You may have defined new permissions for your endpoints. In this case, the new permissions have to be included in the DB.
+F.e
+router.post("/magic",authMiddleware,permissionMiddleware(["ADD MAGIC"]),validationMiddleware(CreateMagicDto),this.addMagic)
+
+
+
+
+
+
+
 
